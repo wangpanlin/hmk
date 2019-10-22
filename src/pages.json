@@ -1,16 +1,889 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [		
 		{
-			"path": "pages/index/index",
+			//登陆
+			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
 			}
-		}
+		},
+		{
+			//落地版块
+			"path": "pages/gwaDetail/gwaDetail",
+			"style": {
+				"navigationBarTitleText": "落地版块",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "落地版块"
+					}
+				}		
+			}
+		},
+		{
+			//医美生美更多
+			"path": "pages/xmMore/xmMore",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "项目列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "项目列表"
+					}
+				}
+			}
+		},
+		{
+			//生美生美更多
+			"path": "pages/smMore/smMore",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "项目列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "项目列表"
+					}
+				}
+			}
+		},
+		{
+			//医美生美详情
+			"path": "pages/xmDetail/xmDetail",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "项目列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "项目列表"
+					}
+				}
+			}
+		},
+		{
+			//绑定手机号
+			"path": "pages/bindPhone/bindPhone",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}						
+		},
+		{
+			//注册
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}						
+		},		
+		{
+			//忘记密码
+			"path": "pages/forgot/forgot",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}			
+		},
+		{
+			//主页
+			"path": "pages/home/home",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "汇美客",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					//阻止输入框弹起
+					"softinput" : {
+					    "mode" : "adjustPan"
+					},
+					"titleNView": {
+						"type": "default",
+						"backgroundColor": "#ed824a",
+						"searchInput": {
+							"backgroundColor": "rgba(231, 231, 231,.7)",
+							"borderRadius": "16px",
+							"placeholder": "美业知识,搜一下,全知道!",
+							//允许输入框点击
+							"disabled": false,
+							"placeholderColor": "#333"
+						},
+						"buttons": [{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "26",
+								"color": "#fff",
+								"float": "left",
+								"background": "rgba(0,0,0,0)"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue70a",
+								"fontSize": "27",
+								"color": "#fff",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				},
+				"enablePullDownRefresh" : true
+			}
+		},
+		{
+			//商城
+			"path":"pages/shop/shop",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商城",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商城"
+					}
+				},
+				"enablePullDownRefresh" : true
+			}			
+		},
+		{
+			//商品详情
+			"path":"pages/shopDetail/shopDetail",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商品详情",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商品详情"
+					}
+				}
+			}
+		},
+		{
+			//个人中心
+			"path":"pages/my/my",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "个人中心",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "个人中心",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue607",
+								"fontSize": "27",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			//云课堂
+			"path":"pages/classroom/classroom",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "汇美课",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "汇美课"
+					}
+				}
+			}			
+		},
+		{
+			//讲师介绍
+			"path":"pages/LecturerDetails/LecturerDetails",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "讲师介绍",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "讲师介绍"
+					}
+				}
+			}			
+		},
+		{
+			//运营更多课程
+			"path":"pages/more/MoreCourses",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程列表"
+					}
+				}
+			}			
+		},
+		{
+			//团队更多课程
+			"path":"pages/more/MoreCourses3",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程列表"
+					}
+				}
+			}			
+		},
+		{
+			//未购买/已购买课程
+			"path":"pages/NotPurchased/NotPurchased",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "文稿",				
+				// #endif 
+				"app-plus": {
+					"softinput" : {
+					    "mode" : "adjustPan"
+					},
+					"titleNView": {
+						"type": "default",
+						"titleText": "文稿",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+						
+					}
+				}
+			}							
+		},
+		{
+			//音频播放
+			"path":"pages/audio/audio",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "音频播放",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "音频"
+					}
+				}
+			}							
+		},
+		{
+			//视频播放
+			"path":"pages/video/video",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "视频播放",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default"
+					}
+				}
+			}							
+		},		
+		{
+			//线下课
+			"path":"pages/OfflineClass/Offline",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "线下课",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "线下课"
+						// "buttons": [
+						// 	{
+						// 		"fontSrc": "/static/iconfont/iconfont.ttf",
+						// 		"text": "\ue603",
+						// 		"fontSize": "20",
+						// 		"float": "right",
+						// 		"color": "#fff"
+						// 	}
+						// ]
+					}
+				}
+			}
+		},
+		{
+			//学习分享
+			"path":"pages/StudentSharing/StudentSharing",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学习分享",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学习分享"
+					}
+				}
+			}						
+		},
+		{
+			//进驻企业
+			"path":"pages/guwenan/guwenan",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "落地版块",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "落地版块"
+					}
+				}
+			}
+		},						
+		{
+			//每周预约课
+			"path":"pages/Course/Course",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程预约",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程预约"
+					}
+				}
+			}						
+		},
+		{
+			//结算台
+			"path":"pages/buy/buy",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台"
+					}
+				}
+			}			
+		},
+		{
+			//地址管理
+			"path":"pages/address/address",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "地址管理",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "地址管理"
+					}
+				}
+			}							
+		},
+		{
+			//新增地址
+			"path":"pages/Newaddress/Newaddress",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "添加地址",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "添加地址"
+					}
+				}
+			}							
+		},
+		{
+			//编辑地址
+			"path":"pages/editaddr/editaddr",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "编辑地址",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "编辑地址"
+					}
+				}
+			}							
+		},		
+		{
+			//充值
+			"path":"pages/pay/pay",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "充值",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "充值",
+						"buttons": [
+							{
+								"text": "明细",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//设置
+			"path":"pages/set/set",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "设置",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "设置"
+					}
+				}
+			}			
+		},
+		{	//修改姓名
+			"path":"pages/revise/revise",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//修改电话
+			"path":"pages/revise/revise3",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//修改个性签名
+			"path":"pages/revise/revise4",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},						
+		{	//修改密码
+			"path":"pages/Modify/Modify",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改密码",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改密码",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//学员证
+			"path":"pages/certificate/certificate",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学员证",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学员证"
+					}
+				}
+			}			
+		},
+		{	//订单
+			"path":"pages/order/order",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "订单",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "订单"
+					}
+				}
+			}			
+		},
+		{	//卡券
+			"path":"pages/coupons/coupons",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "优惠券",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "优惠券"
+					}
+				}
+			}			
+		},
+		{	//充值记录
+			"path":"pages/record/record",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "记录",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "记录"
+					}
+				}
+			}			
+		},
+		{	//人脉
+			"path":"pages/contacts/contacts",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "人脉",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "人脉"
+					}
+				}
+			}			
+		},
+		{	//收藏
+			"path":"pages/collection/collection",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "收藏",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "收藏"
+					}
+				}
+			}			
+		},
+		{	//下载
+			"path":"pages/download/download",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "下载",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "下载"
+					}
+				}
+			}			
+		},
+		{	//行业详情
+			"path":"pages/IndustryDetails/IndustryDetails",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "行业动态",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "行业动态"
+					}
+				}
+			}			
+		},
+		{	//行业动态更多
+			"path":"pages/IndustryMore/IndustryMore",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "行业列表",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "行业列表"
+					}
+				}
+			}			
+		},
+		{	//签到
+			"path":"pages/signIn/signIn",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "签到",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "签到"
+					}
+				}
+			}			
+		},
+		{	//我的学习心得
+			"path":"pages/StudyNotes/StudyNotes",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学习心得",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学习心得"
+					}
+				}
+			}			
+		},
+		{	//开通注册会员
+			"path":"pages/BuyMember/BuyMember",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "注册会员",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "注册会员",
+						"backgroundColor": "rgba(0,0,0,.8)"
+					}
+				}
+			}			
+		},
+		{	//无地址的结算台
+			"path":"pages/checkout/checkout",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台"
+					}
+				}
+			}			
+		},
+		{	//无地址的结算台
+			"path":"pages/checkout/checkout2",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台"
+					}
+				}
+			}			
+		},
+		{	//写心得的页面
+			"path":"pages/experience/experience",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "心得",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "心得",
+						"buttons": [
+							{
+								"text": "发布",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//帮助中心
+			"path":"pages/service/service",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "帮助中心",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "帮助中心"
+					}
+				}
+			}			
+		},
+		{	//推荐给好友
+			"path":"pages/invitation/invitation",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "推荐给朋友",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "推荐给朋友"
+					}
+				}
+			}			
+		},
+		{	//秋梅文化
+			"path":"pages/propaganda/propaganda",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "秋梅文化",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "秋梅文化"
+					}
+				}
+			}			
+		},
+		{	//聊天
+			"path":"pages/server/server",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "聊天",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "聊天"
+					}
+				}
+			}			
+		}		
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "汇美客",
+		"navigationBarBackgroundColor": "#ed824c",
+		"backgroundColor": "#f8f8f8"
+	},
+	"tabBar": {
+		"color":"#000",
+		"selectedColor":"#ed824a",
+		"list": [
+			{
+				"pagePath":"pages/home/home",
+				"iconPath":"static/images/common/home1.png",
+				"selectedIconPath":"static/images/common/home2.png",
+				"text":"首页"
+			},
+			{
+				"pagePath":"pages/shop/shop",
+				"iconPath":"static/images/common/shop1.png",
+				"selectedIconPath":"static/images/common/shop2.png",
+				"text":"商城"
+			},
+			{
+				"pagePath":"pages/my/my",
+				"iconPath":"static/images/common/my1.png",
+				"selectedIconPath":"static/images/common/my2.png",
+				"text":"我的"				
+			}
+		]
 	}
 }
