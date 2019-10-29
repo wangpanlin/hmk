@@ -34,9 +34,10 @@
 		},
 		onLoad() {
 			//顾问案列表请求
-			this.$request.ymMore().then(res =>{
+			this.$request.smMore({
+				
+			}).then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.gwaList = res;
 			},err =>{
 				console.log(err)

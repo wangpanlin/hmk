@@ -570,16 +570,21 @@
 				this.$request.upgrade().then(res =>{
 					res = JSON.parse(res)
 					var i_bbh = Number(res.i_bbh);
-					if(bbh > i_bbh) {
-						let buttons = '美'
-						//buttons = '\ue670' 如果是字体图标需要引入ttf文件
-						var currentWebview = this.$mp.page.$getAppWebview();
-						console.log(currentWebview)
-						var tn = currentWebview.getStyle().titleNView;  
-						tn.buttons[0].text = buttons;     //[0] 按钮的下标
-						currentWebview.setStyle({ 
-						titleNView: tn 
-						});
+					if(uni.getSystemInfoSync().platform === 'android') {
+						
+					}else {
+						//如果是苹果手机，审核app就显示美
+						if(bbh > i_bbh) {
+							let buttons = '美'
+							//buttons = '\ue670' 如果是字体图标需要引入ttf文件
+							var currentWebview = this.$mp.page.$getAppWebview();
+							console.log(currentWebview)
+							var tn = currentWebview.getStyle().titleNView;  
+							tn.buttons[0].text = buttons;     //[0] 按钮的下标
+							currentWebview.setStyle({ 
+							titleNView: tn 
+							});
+						}
 					}
 				},err =>{
 					console.log(err)
@@ -611,9 +616,115 @@
 				console.log(err)
 			})
 		},
+		onShow: async function(e) {
+			this.showSearch = false;
+			this.show = true;
+		},
+		onTabItemTap: async function(e) {
+			this.showSearch = false;
+			this.show = true;
+			uni.navigateTo({
+				url: '/pages/search/search'
+			})
+		},
+		onNavigationBarSearchInputChanged: async function(e) {
+			if(!e.text) {
+				this.showSearch = false;
+				this.show = true;
+			}
+		},
+		// 标题栏input搜索框点击(请在真机上测试)
+		onNavigationBarSearchInputConfirmed: async function(e) {
+			this.showSearch = true;
+			var SearchName = e.text;
+			if(!SearchName) {
+				this.showSearch = false;
+				this.show = true;
+			}
+			if(SearchName) {
+				this.$request.Search({
+					key: SearchName
+				}).then(res =>{
+					res = JSON.parse(res);
+					this.resSearch = res;
+					this.show = false;
+					this.sszd = this.resSearch.map((items) => {
+						if(items.szzd) {
+							return items.szzd.substring(items.szzd,30) + "...";
+						}
+					})
+					
+					this.bb = this.sszd.join(",");
+		
+					//搜索过滤返回
+					this.searchData = this.resSearch.filter((item) => {
+		
+						return Object.keys(item).some((key) => {
+							return String(item[key]).toLowerCase().indexOf(SearchName) > -1;
+						})
+					})
+					if(res == -1) {
+						this.$msg("未搜索到该商品！");
+					}
+				},err =>{
+					console.log(err)
+				})
+			}
+		},
+		//点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			
+			const index = e.index;
+			if (index === 0) {
+				// #ifdef  H5
+				this.$msg('请在APP进行扫码');
+				//#endif
+				
+				// #ifdef  APP-PLUS
+				var platform = plus.os.name
+				if(this.testPhone == 13555555555) {
+					return;
+				}
+				//这里不要用ios去判断了，先判断安卓再用else判断
+				if(platform == 'iOS') {  
+					var AVCaptureDevice = plus.ios.importClass('AVCaptureDevice')  
+					var scaneState = AVCaptureDevice.authorizationStatusForMediaType('vide')  
+					if (3 != scaneState) {  
+						uni.showModal({  
+							content: '需要访问您的相机，请到设置里开启',  
+							confirmText: '设置',  
+							success: res => {  
+								if(res.confirm) {  
+									plus.runtime.openURL('app-settings://')
+								} else {
+									uni.navigateBack({  
+										delta: 1  
+									})  
+								}  
+							}  
+						});  
+					}  
+				}
+				uni.scanCode({
+					onlyFromCamera: true,
+					success: function (res) {
+						let url = res.result;
+						let [a,b,c,d] = url.match(/(hyid).*/gi)[0].split('/')
+						uni.navigateTo({
+							url: `/pages/signIn/signIn?hyid=${b}&ccid=${d}`
+						})
+					}
+				});
+				//#endif
+			}else if (index === 1) {
+				uni.switchTab({
+					url: '/pages/my/my'
+				})
+			}
+		},
 		methods: {
 			//全屏loading调用显示
-			showFullLoading : function(){
+			showFullLoading(){
 			    this.graceFullLoading = true;
 			    setTimeout(function(){this.graceFullLoading = false;}.bind(this), 3000);
 			},
@@ -622,6 +733,9 @@
 			},
 			hideTabbar() {
 				uni.hideTabBar()
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
 			},
 			DotStyle(e) {
 				this.dotStyle = e.detail.value
@@ -725,60 +839,7 @@
 				})
 				
 			},
-			onShow: async function(e) {
-				this.showSearch = false;
-				this.show = true;
-			},
-			onTabItemTap: async function(e) {
-				this.showSearch = false;
-				this.show = true;
-			},
-			onNavigationBarSearchInputChanged: async function(e) {
-				if(!e.text) {
-					this.showSearch = false;
-					this.show = true;
-				}
-			},
-			// 标题栏input搜索框点击(请在真机上测试)
-			onNavigationBarSearchInputConfirmed: async function(e) {
 
-				this.showSearch = true;
-				var SearchName = e.text;
-				if(!SearchName) {
-					this.showSearch = false;
-					this.show = true;
-				}
-				if(SearchName) {
-					this.$request.Search({
-						key: SearchName
-					}).then(res =>{
-						res = JSON.parse(res);
-						this.resSearch = res;
-						this.show = false;
-						this.sszd = this.resSearch.map((items) => {
-							if(items.szzd) {
-								return items.szzd.substring(items.szzd,30) + "...";
-							}
-						})
-						
-						this.bb = this.sszd.join(",");
-
-						//搜索过滤返回
-						this.searchData = this.resSearch.filter((item) => {
-
-							return Object.keys(item).some((key) => {
-								return String(item[key]).toLowerCase().indexOf(SearchName) > -1;
-							})
-						})
-						if(res == -1) {
-							this.$msg("未搜索到该商品！");
-						}
-					},err =>{
-						console.log(err)
-					})
-				}
-
-			},
 			
 			//进入搜索详情
 			SearchDetail(id,szzd) {
@@ -797,57 +858,6 @@
 				uni.navigateTo({
 					url: `/pages/shopDetail/shopDetail?id=${id}`,
 				})
-			},
-			//点击导航栏 buttons 时触发
-			onNavigationBarButtonTap(e) {
-				
-				const index = e.index;
-				if (index === 0) {
-					// #ifdef  H5
-					this.$msg('请在APP进行扫码');
-					//#endif
-					
-					// #ifdef  APP-PLUS
-					var platform = plus.os.name
-					if(this.testPhone == 13555555555) {
-						return;
-					}
-					//这里不要用ios去判断了，先判断安卓再用else判断
-					if(platform == 'iOS') {  
-						var AVCaptureDevice = plus.ios.importClass('AVCaptureDevice')  
-						var scaneState = AVCaptureDevice.authorizationStatusForMediaType('vide')  
-						if (3 != scaneState) {  
-							uni.showModal({  
-								content: '需要访问您的相机，请到设置里开启',  
-								confirmText: '设置',  
-								success: res => {  
-									if(res.confirm) {  
-										plus.runtime.openURL('app-settings://')
-									} else {
-										uni.navigateBack({  
-											delta: 1  
-										})  
-									}  
-								}  
-							});  
-						}  
-					}
-					uni.scanCode({
-						onlyFromCamera: true,
-						success: function (res) {
-							let url = res.result;
-							let [a,b,c,d] = url.match(/(hyid).*/gi)[0].split('/')
-							uni.navigateTo({
-								url: `/pages/signIn/signIn?hyid=${b}&ccid=${d}`
-							})
-						}
-					});
-					//#endif
-				}else if (index === 1) {
-					uni.switchTab({
-						url: '/pages/my/my'
-					})
-				}
 			},
 			//点击单个最新课程
 			zx(id) {

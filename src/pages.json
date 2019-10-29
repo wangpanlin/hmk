@@ -169,6 +169,21 @@
 			}			
 		},
 		{
+			//搜索页面
+			"path":"pages/search/search",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "搜索",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "搜索"
+					}
+				}
+			}			
+		},
+		{
 			//商品详情
 			"path":"pages/shopDetail/shopDetail",
 			"style": {

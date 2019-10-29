@@ -181,6 +181,8 @@ export default {
 	zjqyMore: `${baseurl}/Index/zjqygd`,
 	//医美更多
 	ymMore: `${baseurl}/Index/ymxmgd`,
+	//生美更多
+	smMore: `${baseurl}/Index/smxmgd`,
 	//商品收藏
 	spsc: `${baseurl}/Yktapi/spsc`,
 	//显示商品收藏

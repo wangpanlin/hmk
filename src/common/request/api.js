@@ -431,6 +431,11 @@ export default {
 		let response = await request.Fetch(requestURL.ymMore,prams,'POST',true,true)
 		return response;
 	},
+	//生美更多
+	smMore: async function (prams) {
+		let response = await request.Fetch(requestURL.smMore,prams,'POST',true,true)
+		return response;
+	},
 	//商品收藏
 	spsc: async function (prams) {
 		let response = await request.Fetch(requestURL.spsc,prams,'POST',true,true)
