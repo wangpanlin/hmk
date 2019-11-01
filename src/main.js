@@ -94,6 +94,10 @@ Vue.component('uParse',uParse);
 import jlPopup from './components/popup.vue';
 Vue.component('jlPopup',jlPopup )
 
+//保存图片
+import savefile from './components/saveFile.vue'
+Vue.component('savefile',savefile)
+
 const app = new Vue({
 	...App
 })

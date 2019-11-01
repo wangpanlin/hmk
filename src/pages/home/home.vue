@@ -4,15 +4,6 @@
 		<graceFullLoading :graceFullLoading="graceFullLoading" logoUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565089003040&di=ca81c9cb9e712865bac7908eaa13cf30&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2Fallimg%2F170428%2F1554261k1-0.gif"></graceFullLoading>
 		
 		<view class="home" v-show="show">
-			<!-- #ifdef MP -->
-			<view class="header">
-				<view class="search">
-					<text class="icon">&#xe618;</text>
-					<input type="text" placeholder="美业知识,搜一下,全知道!" @click="hideTabbar" @focus="hideTabbar" @blur="showTabbar" />
-				</view>
-				<view class="Sweepcode"><text class="icon" @click="Sweepcode">&#xe600;</text></view>		
-			</view>
-			<!-- #endif -->
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
 				<swiper-item v-for="(item, index) in banner" :key="index">				
 					<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
@@ -623,9 +614,6 @@
 		onTabItemTap: async function(e) {
 			this.showSearch = false;
 			this.show = true;
-			uni.navigateTo({
-				url: '/pages/search/search'
-			})
 		},
 		onNavigationBarSearchInputChanged: async function(e) {
 			if(!e.text) {
@@ -646,6 +634,7 @@
 					key: SearchName
 				}).then(res =>{
 					res = JSON.parse(res);
+					console.log(res)
 					this.resSearch = res;
 					this.show = false;
 					this.sszd = this.resSearch.map((items) => {
@@ -733,9 +722,6 @@
 			},
 			hideTabbar() {
 				uni.hideTabBar()
-				uni.navigateTo({
-					url: '/pages/search/search'
-				})
 			},
 			DotStyle(e) {
 				this.dotStyle = e.detail.value

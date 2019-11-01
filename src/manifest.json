@@ -2,8 +2,8 @@
     "name" : "汇美客",
     "appid" : "__UNI__8957C74",
     "description" : "",
-    "versionName" : "1.0.7",
-    "versionCode" : 107,
+    "versionName" : "1.0.8",
+    "versionCode" : 108,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -81,19 +81,19 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/hmkqdy/引导页480.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/hmkqdy/引导页720.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/hmkqdy/引导页1080.png"
+                    "hdpi" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页480.png",
+                    "xhdpi" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页720.png",
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页1080.png"
                 },
                 "ios" : {
                     "iphone" : {
-                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/hmkqdy/引导页12422688.png",
-                        "iphonex" : "C:/Users/Administrator/Desktop/hmkqdy/1125.png",
-                        "retina55" : "C:/Users/Administrator/Desktop/hmkqdy/引导页1242.png",
-                        "retina47" : "C:/Users/Administrator/Desktop/hmkqdy/引导页750.png",
-                        "retina40" : "C:/Users/Administrator/Desktop/hmkqdy/640.png",
-                        "retina35" : "C:/Users/Administrator/Desktop/hmkqdy/引导页640960.png",
-                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/hmkqdy/引导页 1.png"
+                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页12422688.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/1125.png",
+                        "retina55" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页12422688.png",
+                        "retina47" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页750.png",
+                        "retina40" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/640.png",
+                        "retina35" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页640960.png",
+                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/时讯科技公司项目/汇美客/汇美客启动页/引导页 1.png"
                     }
                 }
             },
