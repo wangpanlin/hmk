@@ -3,9 +3,15 @@
 		<view class="videoList" :id="'videoitem_'+index" v-for="(item, index) in videoList" :key="index">
 			<view><video :id="'video_'+index" :src="item.src" controls></video></view>
 			<view class="title">
-				<text>{{item.title}}</text>
-				<view @click="dianzan(index,item.dz,item.id,item.num)">
-					<text class="thumbs icon" :class="{red:item.dz}">&#xe610;<text>点赞{{item.num}}</text></text>
+				<view class="view">
+					<text class="fw">{{item.title}}</text>
+					<text>这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</text>
+				</view>
+				<view class="bottom">
+					<view @click="dianzan(index,item.dz,item.id,item.num)" class="dianzan">
+						<text class="thumbs icon" :class="{red:item.dz}">&#xe610;<text>点赞{{item.num}}</text></text>
+					</view>
+					<view>收藏</view>
 				</view>
 			</view>
 		</view>
@@ -104,11 +110,38 @@ export default {
 	}
 }
 </script>
-<style>
+<style lang="less" scoped>
 .page{height:auto;}
 view{line-height:1.8em; font-size:28upx;}
 .videoList{position: relative;}
-.videoList .title{display: flex; justify-content: space-between; height: 100upx;text-indent: 40upx; align-items: center;}
+video {
+	vertical-align:top;
+}
+.videoList .title{
+	vertical-align: top;
+	padding: 20rpx;
+	padding-top: 0;
+	display: flex; 
+	flex-direction: column;
+	background: #ccc;
+	.view {
+		padding: 0 30rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.fw {
+			font-weight: bold;
+			font-size: 34rpx;
+			margin: 10rpx 0;
+			margin-bottom: 0;
+		}
+	}
+	.bottom {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 40rpx;
+	}
+}
 .thumbs {
 	margin-right: 60upx;
 	font-size: 28upx;

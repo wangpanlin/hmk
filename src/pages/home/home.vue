@@ -42,6 +42,10 @@
 				</view>
 				<view class="propaganda" @click="propaganda">
 					<image :src="qmwh_img"></image>
+					<view>
+						<text class="fw">《测试标题》</text>
+						<text class="content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容...</text>
+					</view>
 				</view>
 			</view>
 			<view class="NewCurriculum" v-if="zbkc_switch">
@@ -260,7 +264,7 @@
 		data() {
 			return {
 				//全屏loading开关
-				graceFullLoading : false,
+				graceFullLoading : true,
 				windowHeight: '',
 				tabbar: true,
 				//搜索的课程名称
@@ -369,7 +373,6 @@
 				console.log(err)
 			})
 			
-			this.showFullLoading();
 			this.show = false;
 			this.TowerSwiper('banner');
 			// #ifdef H5
@@ -468,6 +471,7 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
+				this.graceFullLoading = false;
 				console.log(res)
 				this.qmwh = res.qmwh;
 				this.qmwh_img = res.qmwh_img;
@@ -712,11 +716,6 @@
 			}
 		},
 		methods: {
-			//全屏loading调用显示
-			showFullLoading(){
-			    this.graceFullLoading = true;
-			    setTimeout(function(){this.graceFullLoading = false;}.bind(this), 3000);
-			},
 			showTabbar() {
 				uni.showTabBar()
 			},
@@ -1245,17 +1244,39 @@
 			}
 
 		}
-		.propaganda, .OfflineCourse {
+		.propaganda {
+			padding: 0 40rpx;
+			display: flex;
+			flex-direction: column;
+			image {
+				flex-shrink: 0;
+				width: 100%;
+				height: 200rpx;
+				flex-shrink: 0;
+			}
+			view {
+				margin-top: 20rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.fw {
+					font-size: 36rpx;
+					font-weight: bold;
+					margin-bottom: 10rpx;
+				}
+				.content {
+					line-height: 44rpx;
+					font-size: 30rpx;
+					color: #838383;
+				}
+			}
+		}
+		.OfflineCourse {
 			height: 200upx;
 			padding: 0 40upx;
 			box-sizing: border-box;
 			margin-bottom: 20upx;
 			display: flex;
-			image {
-				flex-shrink: 0;
-				width: 100%;
-				height: 100%;
-			}
 		}
 		.commonItem {
 			width: 90%;

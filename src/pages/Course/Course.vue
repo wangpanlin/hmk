@@ -5,9 +5,9 @@
 			<lazy-image v-else :realSrc="noImg" placeholdSrc=""></lazy-image>
 		</view>
 		<view class="enroll">
-			<view>
+			<view v-if="CourseData.kcxq">
 				<text>倒计时：</text>
-				<count-down  v-if="CourseData.kcxq" :endTime="CourseData.kcxq.start_time" endText="已经结束了"></count-down>					
+				<count-down :endTime="CourseData.kcxq.start_time" endText="已经结束了"></count-down>					
 			</view>
 			<view class="bmzt"   v-if="CourseData.kcxq" @click="GObmzt(CourseData.kcxq.xsk_id)">
 				<view class="button" v-if="!bmzt">预约</view>
