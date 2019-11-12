@@ -18,7 +18,7 @@
 		<view class="detail">
 			<text class="x">产品详情</text>
 			<view style="padding: 0 20upx;">
-				<u-parse :content="shopDetail.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
+				<rich-text type="text" :nodes="shopDetail.content"></rich-text>
 			</view>
 		</view>
 		<view class="footer">
@@ -69,7 +69,6 @@
 					<tui-button type="warning" tui-button-class="tui-btn-equals" shape="circle" size="mini" class="tui-flex-1" @click="hidePopup(shopDetail.id)">立即购买</tui-button>
 				</view>
 				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:20px" @tap="hidePopup"></view>
-				<!-- <tui-icon name="close-fill" color="#999" class="tui-icon-close" size="20" @tap="hidePopup"></tui-icon> -->
 			</view>
 		</tui-bottom-popup>
 		<!--底部选择层-->
@@ -151,6 +150,7 @@
 				res = JSON.parse(res);
 				console.log(res)
 				this.shopDetail = res;
+				this.shopDetail.content = this.shopDetail.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
 				//显示商品收藏接口
 				this.$request.xsspsc({
 					id: this.shopDetail.id

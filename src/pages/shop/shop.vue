@@ -1,26 +1,31 @@
 <template>
-	<view class="shop" v-show="isShow">
-		<view class="nav">
-			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-				<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in ShopList" :key="index" @tap="tabSelect" :data-id="index">
-					{{item.scfl}}
+	<view>
+		<graceFullLoading :graceFullLoading="graceFullLoading" logoUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565089003040&di=ca81c9cb9e712865bac7908eaa13cf30&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2Fallimg%2F170428%2F1554261k1-0.gif"></graceFullLoading>
+		<view class="shop" v-show="isShow">
+			
+			<view class="nav">
+				<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
+					<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in ShopList" :key="index" @tap="tabSelect" :data-id="index">
+						{{item.scfl}}
+					</view>
+				</scroll-view>
+			</view>	
+			<view class="content">
+				<view v-for="(item,index2) in ShopList" :key="index2" v-if="index2==TabCur" class="ul">
+					<view class="li" v-for="(items, index3) in item.list" :key="index3" @click="shopDetail(items.id)">
+						<lazy-image :realSrc="imgUrl + items.photo" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
+						<text class="title2">《{{items.title}}》</text>
+						<text class="content2">{{$tools.cutString(items.abstract,20)}}</text>
+						<text class="yzd">{{items.gmsl}}元</text>
+					</view>
 				</view>
-			</scroll-view>
-		</view>	
-		<view class="content">
-			<view v-for="(item,index2) in ShopList" :key="index2" v-if="index2==TabCur" class="ul">
-				<view class="li" v-for="(items, index3) in item.list" :key="index3" @click="shopDetail(items.id)">
-					<lazy-image :realSrc="imgUrl + items.photo" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
-					<text class="title2">《{{items.title}}》</text>
-					<text class="content2">{{$tools.cutString(items.abstract,20)}}</text>
-					<text class="yzd">{{items.gmsl}}元</text>
+				<view class="end" style="font-size: 30rpx;">
+					<text>没有更多数据了!</text>
 				</view>
-			</view>
-			<view class="end">
-				<text>—— 我是有底线的 ——</text>
-			</view>
-		</view>	
+			</view>	
+		</view>
 	</view>
+
 	
 </template>
 
@@ -29,6 +34,7 @@
 	export default {
 		data() {
 			return {
+				graceFullLoading: true,
 				isShow: false,
 				imgUrl: this.$imgUrl.imgUrl,
 				imgUrl2: this.$imgUrl.imgUrl2,
@@ -44,12 +50,8 @@
 			this.$request.shop().then(res =>{
 				res = JSON.parse(res);
 				this.ShopList = res;
-				console.log(this.ShopList)
+				this.graceFullLoading = false;
 				this.isShow = true;
-				// let [...all] = this.ShopList.map((item) => {
-				// 	return item.scfl;
-				// })
-				// this.tabList = Array.from(all, item => {return {name: item}})
 			},err =>{
 				console.log(err)
 			})
@@ -62,10 +64,7 @@
 				this.ShopList = res;
 				console.log(this.ShopList)
 				this.isShow = true;
-				// let [...all] = this.ShopList.map((item) => {
-				// 	return item.scfl;
-				// })
-				// this.tabList = Array.from(all, item => {return {name: item}})
+				this.graceFullLoading = false;
 				uni.showToast({title: "数据更新成功！", icon:"none"});
 				// 结束下拉刷新
 				uni.stopPullDownRefresh();
@@ -135,7 +134,9 @@
 		.content {
 			margin-top: 88upx;
 			padding: 27upx 36upx;
+			/* #ifdef H5 */
 			padding-bottom: 120upx;
+			/* #endif */
 			.ul {
 				display: flex;
 				flex-wrap: wrap;

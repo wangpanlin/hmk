@@ -50,7 +50,7 @@
 			</view>
 			<!-- 富文本盛放的内容盒子 -->
 			<view class="tx">
-				<u-parse :content="xqxx.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
+				<rich-text type="text" :nodes="xqxx.content"></rich-text>
 			</view>
 			<view class="tabBar2" v-if="gmzt == -1">
 				<text class="yzd">{{xqxx.gmsl}}颜值豆</text>
@@ -192,6 +192,7 @@
 					console.info(res)
 					this.gmzt = res.gmzt;
 					this.xqxx = res.xqxx;
+					this.xqxx.content = this.xqxx.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
 					this.js = res.js;
 					this.xxxd = res.xxxd;
 					this.duration = this.format(this.xqxx.duration)
@@ -378,13 +379,11 @@
 			kcdetail(id,gmzt) {
 				if(gmzt == 1) {
 					if(this.xqxx.yplx === 0) {
-						console.log("123")
 						uni.navigateTo({
 							url: `/pages/audio/audio?id=${id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}&gmzt=${gmzt}&fxbt=${this.xqxx.title}`
 						})
 					}
 					else if(this.xqxx.yplx === 1) {
-						console.log("3453")
 						uni.navigateTo({
 							url: `/pages/video/video?id=${id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}&gmzt=${gmzt}&fxbt=${this.xqxx.title}`
 						})					

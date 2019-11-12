@@ -11,7 +11,9 @@
 					<view @click="dianzan(index,item.dz,item.id,item.num)" class="dianzan">
 						<text class="thumbs icon" :class="{red:item.dz}">&#xe610;<text>点赞{{item.num}}</text></text>
 					</view>
-					<view>收藏</view>
+					<view>
+						<uni-fav :checked="checked" class="favBtn" circle="true" bg-color="#dd524d" bg-color-checked="#007aff" @click="fav" />
+					</view>
 				</view>
 			</view>
 		</view>
@@ -23,7 +25,11 @@ var src = '';
 var sys = uni.getSystemInfoSync();
 var sysheight  = sys.windowHeight;
 var baseCenter = sys.windowHeight / 2;
+import {uniFav } from '@dcloudio/uni-ui'
 export default {
+	components: {
+		uniFav 
+	},	
 	data() {
 		return {
 			playIngIndex : null,
@@ -33,7 +39,8 @@ export default {
 			videoContext : null,
 			timer : null,
 			num: 0,
-			dz: 0
+			dz: 0,
+			checked: false
 		}
 	},
 	onLoad:function(){
@@ -63,6 +70,9 @@ export default {
 		this.timer = setTimeout(function(){this.scrollPlay(e);}.bind(this), 200);
 	},
 	methods: {
+		fav() {
+			this.checked = !this.checked;
+		},
 		scrollPlay : function(e){
 			//暂停
 			if(this.playIngIndex != null){
@@ -121,7 +131,7 @@ video {
 	vertical-align: top;
 	padding: 20rpx;
 	padding-top: 0;
-	display: flex; 
+	display: flex;
 	flex-direction: column;
 	background: #ccc;
 	.view {

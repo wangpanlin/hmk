@@ -108,22 +108,22 @@
 		<view class="diploma" @click="contacts">
 			<text style="font-size: 30upx;">我的人脉</text>
 			<view style="display: flex;">
-				<view class="icon hui" style="font-size: 21upx;">立即查看</view>
-				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
+				<view class="icon hui" style="font-size: 26upx;">立即查看</view>
+				<view class="icon hui" style="font-size: 28upx;">&#xe656;</view>
 			</view>
 		</view>
 		<view class="diploma" @click="invitation">
 			<text style="font-size: 30upx;">推荐给好友</text>
 			<view style="display: flex;">
-				<view class="icon hui" style="font-size: 21upx;">立即邀请</view>
-				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
+				<view class="icon hui" style="font-size: 26upx;">立即邀请</view>
+				<view class="icon hui" style="font-size: 28upx;">&#xe656;</view>
 			</view>
 		</view>
 		<view class="diploma" @click="service">
 			<text style="font-size: 30upx;">帮助中心</text>
 			<view style="display: flex;">
-				<view class="icon hui" style="font-size: 21upx;">立即查看</view>
-				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
+				<view class="icon hui" style="font-size: 26upx;">立即查看</view>
+				<view class="icon hui" style="font-size: 28upx;">&#xe656;</view>
 			</view>
 		</view>		
 	</view>

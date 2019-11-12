@@ -19,7 +19,7 @@
 			
 			<text class="x">产品详情</text>
 			<view style="padding: 0 20upx;">
-				<u-parse :content="shopDetail.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
+				<rich-text type="text" :nodes="shopDetail.content"></rich-text>
 			</view>
 		</view>
 		<view class="footer">
@@ -27,7 +27,7 @@
 				<text class="icon homeicon">&#xe636;</text>
 				<text>首页</text>
 			</view>
-			<view class="t" v-if="testShow">
+			<view class="t">
 				<text class="icon homeicon">&#xe635;</text>
 				<text>收藏</text>
 			</view>
@@ -105,6 +105,7 @@
 				res = JSON.parse(res);
 				console.log(res)
 				this.shopDetail = res;
+				this.shopDetail.content = this.shopDetail.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
 			},err =>{
 				console.log(err)
 			})

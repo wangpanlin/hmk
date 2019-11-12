@@ -3,9 +3,27 @@
 		<view class="title">{{DetailsData.title}}</view>
 		<view class="time">{{parseInt(DetailsData.create_time)*1000 | time}}</view>
 		<view class="fwb">
-			<u-parse :content="DetailsData.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
+			<rich-text type="text" :nodes="DetailsData.content" class="rich"></rich-text>
 		</view>
-		
+		<view class="bottomNav">
+			<view>
+				<text class="icon no" v-if="!collect">&#xe608;</text>
+				<text class="icon red" v-if="collect">&#xe635;</text>
+				<text>收藏</text>
+			</view>
+			<view>
+				<text class="icon no" v-if="!collect">&#xe610;</text>
+				<text>点赞</text>
+			</view>
+			<view>
+				<text class="icon no" v-if="!collect">&#xe603;</text>
+				<text>分享</text>
+			</view>
+			<view>
+				<text class="icon no" v-if="!collect">&#xe614;</text>
+				<text>评论</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -14,7 +32,8 @@
 		data() {
 			return {
 				id: '',
-				DetailsData: {}
+				DetailsData: {},
+				collect: false
 			}
 		},
 		onLoad(options) {
@@ -25,6 +44,7 @@
 				res = JSON.parse(res);
 				console.log(res);
 				this.DetailsData = res;
+				this.DetailsData.content = this.DetailsData.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
 			},err =>{
 				console.log(err)
 			})
@@ -67,6 +87,31 @@
 		}
 		.fwb {
 			margin-top: 20upx;
+			margin-bottom: 300rpx;
+		}
+		.bottomNav {
+			width: 100%;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			border-top: 2rpx solid #ccc;
+			background: #fff;
+			padding: 20rpx;
+			display: flex;
+			justify-content: space-around;
+			view {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				.icon {
+					font-size: 40rpx;
+					margin-bottom: 10rpx;
+				}
+				text {
+					font-size: 32rpx;
+				}
+			}
 		}
 	}
 </style>

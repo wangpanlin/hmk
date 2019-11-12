@@ -43,8 +43,8 @@
 				<view class="propaganda" @click="propaganda">
 					<image :src="qmwh_img"></image>
 					<view>
-						<text class="fw">《测试标题》</text>
-						<text class="content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容...</text>
+						<text class="fw">《{{qmxz_title}}》</text>
+						<text class="content">{{qmxz_info}}...</text>
 					</view>
 				</view>
 			</view>
@@ -222,8 +222,8 @@
 					<lazy-image realSrc="http://hmk.qmwhcb.cn/static/home/images/hzhb.png" placeholdSrc=""></lazy-image>
 				</view>
 			</view>
-			<view class="end">
-				<text>—— 我是有底线的 ——</text>
+			<view class="end" style="font-size: 30rpx;">
+				<text>没有更多数据了!</text>
 			</view>
 		</view>
 		<view class="Search" v-show="showSearch">
@@ -244,8 +244,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="end">
-				<text>—— 没有更多了 ——</text>
+			<view class="end" style="font-size: 30rpx;">
+				<text>没有更多数据了!</text>
 			</view>
 		</view>
 		<view class="modelshow" v-if="modelshow">
@@ -277,7 +277,7 @@
 				//轮播图的组件
 				indicatorDots: true,
 				autoplay: true,
-				interval: 3000,
+				interval: 4000,
 				duration: 500,
 				circular: true,				
 				banner: [],				
@@ -325,8 +325,9 @@
 				ymxm: [],
 				//生美项目
 				smxm: [],
-				testPhone: ''
-				
+				testPhone: '',
+				qmxz_info: '',
+				qmxz_title: ''
 			}
 		},
 		onLoad() {
@@ -471,10 +472,11 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
-				this.graceFullLoading = false;
 				console.log(res)
 				this.qmwh = res.qmwh;
 				this.qmwh_img = res.qmwh_img;
+				this.qmxz_info = res.qmxz_info;
+				this.qmxz_title = res.qmxz_title;
 				this.zxkc  = res.zxkc;
 				this.jcfx = res.jcfx;
 				this.wqkc = res.wqkc;
@@ -523,6 +525,7 @@
 				res = JSON.parse(res);
 				console.log(res)
 				this.qbsp = res;
+				this.graceFullLoading = false;
 			},err =>{
 				console.log(err)
 			})	
@@ -984,7 +987,9 @@
 	.home {
 		width: 100%;
 		box-sizing: border-box;
-		padding-bottom: 100upx;
+		/* #ifdef H5 */
+			padding-bottom: 100rpx;
+		/* #endif */
 		.header {
 			width: 100%;
 			height: 100upx;

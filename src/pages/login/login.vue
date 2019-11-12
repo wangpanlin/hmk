@@ -267,6 +267,9 @@
 			},
 			//微信登陆
 			async wxlogin() {
+				uni.showLoading({
+					title: '授权登陆中...'
+				})
 				const promise = await new Promise((resolve, reject) => {
 					uni.login({
 						provider: 'weixin',
@@ -281,31 +284,26 @@
 						}
 					});
 				})
-				console.log(promise.openId)
 				this.$request.WXlogin({
 					oppenid: promise.openId,
 					wxtx: promise.avatarUrl,
 					wxname: promise.nickName
 				}).then(res =>{
-					console.log(JSON.parse(res).regzt)
-					console.log(JSON.parse(res).code)
 					let token = JSON.parse(res).token;
 					let phone = JSON.parse(res).phone;
 					let regzt = JSON.parse(res).regzt;
 					let code = JSON.parse(res).code;
+					uni.hideLoading()
+					//先去微信手机号绑定
 					if(code == 2) {
-						console.log("chffgdjdfgj")
 						uni.navigateTo({
 							url: `/pages/bindPhone/bindPhone?openid=${promise.openId}`,
 							animationType: 'none'
 						})
-
 					}else if(code == 1) {
-						console.log("hfgjftj")
 						this.SetUserInfo({token:token,phone:phone})
 						//已经购买完注册会员
 						if(regzt == 1) {
-							console.log("3gdffg")
 							uni.switchTab({
 								url: '/pages/home/home',
 								animationType: 'none'
@@ -484,7 +482,6 @@
 					}
 				}
 				.weixin {
-					
 					width: 120rpx;
 					height: 120rpx;
 					background: url('~@/static/images/common/wx.png') no-repeat;
