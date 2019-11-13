@@ -1,46 +1,50 @@
 <template>
-	<view class="home_content">
+	<view>
+		<tui-skeleton  backgroundColor="#fafafa" borderRadius="10rpx" v-if="graceFullLoading"></tui-skeleton>
 		<!-- 全屏loading -->
-		<graceFullLoading :graceFullLoading="graceFullLoading" logoUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565089003040&di=ca81c9cb9e712865bac7908eaa13cf30&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2Fallimg%2F170428%2F1554261k1-0.gif"></graceFullLoading>
-		
-		<view class="home" v-show="show">
-			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
-				<swiper-item v-for="(item, index) in banner" :key="index">				
+		<!-- <graceFullLoading :graceFullLoading="graceFullLoading" logoUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565089003040&di=ca81c9cb9e712865bac7908eaa13cf30&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2Fallimg%2F170428%2F1554261k1-0.gif"></graceFullLoading> -->
+		<view class="home tui-skeleton" v-if="show">
+			<!-- 首页顶部轮播 -->
+			<swiper class="swiper tui-skeleton-rect" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
+				<swiper-item v-for="(item, index) in banner" :key="index">
 					<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
 				</swiper-item>
 			</swiper>
+			<!-- 首页顶部导航 -->
 			<view class="nav">
-				<view class="nav-item" @click="classroom">
+				<view class="nav-item tui-skeleton-rect" @click="classroom">
 					<text class="ico icon1"></text>
 					<text class="text">汇美课</text>
 				</view>
-				<view class="nav-item">
+				<view class="nav-item tui-skeleton-rect">
 					<text class="ico icon2" @click="guwen"></text>
 					<text class="text">落地版块</text>
 				</view>
-				<view class="nav-item" @click="shop">
+				<view class="nav-item tui-skeleton-rect" @click="shop">
 					<text class="ico icon3"></text>
 					<text class="text">商城</text>
 				</view>
-				<view class="nav-item" @click="share">
+				<view class="nav-item tui-skeleton-rect" @click="share">
 					<text class="ico icon4"></text>
 					<text class="text">学习分享</text>
 				</view>
 			</view>
-			<view class="bespoke">
+			<!-- 课程预约 -->
+			<view class="bespoke tui-skeleton-fillet" >
 				<view>
 					<text class="title1">{{title.title1}}</text>
 					<text class="title2">{{title.title2}}</text>
 				</view>
 				<button @click="yuyue">立即预约</button>
 			</view>
+			<!-- 秋梅新知 -->
 			<view>
-				<view class="NewCurriculum">
+				<view class="NewCurriculum tui-skeleton-rect">
 					<view class="title3">
 						<text class="headline">{{qmwh}}</text>
 					</view>
 				</view>
-				<view class="propaganda" @click="propaganda">
+				<view class="propaganda tui-skeleton-rect" @click="propaganda">
 					<image :src="qmwh_img"></image>
 					<view>
 						<text class="fw">《{{qmxz_title}}》</text>
@@ -48,23 +52,25 @@
 					</view>
 				</view>
 			</view>
-			<view class="NewCurriculum" v-if="zbkc_switch">
+			<!-- 课程报名直播（后台开关控制显隐） -->
+			<view class="NewCurriculum tui-skeleton-rect" v-if="zbkc_switch">
 				<view class="title3">
 					<text class="headline">线下课程</text>
 				</view>
 			</view>
-			<view class="OfflineCourse" @click="goOffline" v-if="zbkc_switch">
+			<view class="OfflineCourse tui-skeleton-rect" @click="goOffline" v-if="zbkc_switch">
 				<image class ="xianxiaimg" :src="zbimg"></image>
 			</view>
+			<!-- 近期课程 -->
 			<view class="wqkc">
-				<view class="NewCurriculum" style="width: 100%;padding: 0 15upx;">
+				<view class="NewCurriculum tui-skeleton-rect" style="width: 100%;padding: 0 15upx;">
 					<view class="title3">
 						<text class="headline">近期课程</text>
 						<text class="icon more" @click="wqmore">更多</text>
 					</view>	
 					<view></view>
 				</view>	
-				<view class="ul-box">
+				<view class="ul-box tui-skeleton-rect">
 					<view class="li-box" v-for="(item,index) in wqkc" :key="index" @click="wq(item.id)">
 						<view class="top">
 							<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image>
@@ -83,12 +89,13 @@
 					</view>
 				</view>
 			</view>
-			<view class="NewCurriculum">
+			<!-- 落地版块 -->
+			<view class="NewCurriculum tui-skeleton-rect">
 				<view class="title3" style="margin-bottom: 30upx;">
 					<text class="headline">落地版块</text>
 					<text class="icon more" @click="zjmore">更多</text>
 				</view>
-				<view class="gwa" v-for="(item, index) in zjqy" :key="index" @click="zj(item.id)">
+				<view class="gwa tui-skeleton-rect" v-for="(item, index) in zjqy" :key="index" @click="zj(item.id)">
 					<image :src="imgUrl + item.img"></image>
 					<view class="flexC">
 						<text class="f30">《{{item.title}}》</text>
@@ -97,22 +104,24 @@
 					</view>
 				</view>
 			</view>	
-			<view class="NewCurriculum">
+			<!-- 底部轮播 -->
+			<view class="NewCurriculum tui-skeleton-rect">
 
-				<swiper class="swiper2" style="margin-top: 30upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
+				<swiper class="swiper2 tui-skeleton-rect" style="margin-top: 30upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
 					<swiper-item v-for="(item, index) in wmhbanner" :key="index">
 						<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
 					</swiper-item>
 				</swiper>
 			</view>
+			<!-- 医美、生美项目 -->
 			<view class="Item-box">
-				<view class="NewCurriculum">
+				<view class="NewCurriculum tui-skeleton-rect">
 					<view class="title3">
 						<text class="headline">医美项目</text>
 						<text class="icon more" @click="commonmore">更多</text>
 					</view>	
 				</view>
-				<view class="commonItem" >
+				<view class="commonItem tui-skeleton-rect" >
 					<view class="view-box" v-for="(item,index) in ymxm" :key="index" @click="ym(item.id)">
 						<view class="img2"><lazy-image :realSrc="imgUrl + item.img" :placeholdSrc="placeholderSrc"></lazy-image></view>
 						<text class="biaoti">《{{item.title}}》</text>
@@ -122,13 +131,13 @@
 						</view>
 					</view>
 				</view>
-				<view class="NewCurriculum">
+				<view class="NewCurriculum tui-skeleton-rect">
 					<view class="title3">
 						<text class="headline">生美项目</text>
 						<text class="icon more" @click="commonmore2">更多</text>
 					</view>	
 				</view>
-				<view class="commonItem" >
+				<view class="commonItem tui-skeleton-rect" >
 					<view class="view-box" v-for="(item,index) in smxm" :key="index" @click="sm(item.id)">
 						<view class="img2"><lazy-image :realSrc="imgUrl + item.img" :placeholdSrc="placeholderSrc"></lazy-image></view>
 						<text class="biaoti">《{{item.title}}》</text>
@@ -139,14 +148,15 @@
 					</view>
 				</view>
 			</view>
-			<view class="NewCurriculum">
+			<!-- 商城 -->
+			<view class="NewCurriculum tui-skeleton-rect">
 				<view class="title3">
 					<text class="headline">商城</text>
 					<text class="icon more" @click="shopMore">更多</text>
 				</view>	
 			</view>
 			<view class="commonItem" >
-				<view class="view-box" @click="shopDetail(item.id)" v-for="(item,index) in qbsp" :key="index">
+				<view class="view-box tui-skeleton-rect" @click="shopDetail(item.id)" v-for="(item,index) in qbsp" :key="index">
 					<view class="img2"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 					<text class="biaoti">《{{item.title}}》</text>
 					<text class="duanluo" style="font-size: 22upx;">{{item.abstract}}</text>
@@ -155,14 +165,15 @@
 					</view>
 				</view>
 			</view>
+			<!-- 精彩分享 -->
 			<view class="share" style="margin-bottom: 30upx;">
-				<view class="NewCurriculum">
+				<view class="NewCurriculum tui-skeleton-rect">
 					<view class="title3">
 						<text class="headline">精彩分享</text>
 						<text class="icon more" @click="jcmore">更多</text>
 					</view>	
 				</view>
-				<view class="classItem" v-for="(item,index) in jcfx" :key="index">
+				<view class="classItem tui-skeleton-rect" v-for="(item,index) in jcfx" :key="index">
 					<view class="top">
 						<view class="img">
 							<image :src="imgUrl2 + item.head_img" style="width: 100%; height: 100%;"></image>
@@ -177,16 +188,17 @@
 						<text class="ct">{{item.plxd}}</text>
 					</view>
 				</view>
-			</view> 
+			</view>
+			<!-- 行业动态 -->
 			<view class="share">
-				<view class="NewCurriculum">
+				<view class="NewCurriculum tui-skeleton-rect">
 					<view class="title3">
 						<text class="headline">行业动态</text>
 						<text class="icon more" @click="IndustryMore">更多</text>
 					</view>	
 					<view></view>
 				</view>
-				<view class="classItem2" v-for="(item,index) in hydt" :key="index" @click="IndustryDetails(item.id)">
+				<view class="classItem2 tui-skeleton-rect" v-for="(item,index) in hydt" :key="index" @click="IndustryDetails(item.id)">
 					<view>
 						<text class="user2" style="font-weight: bold;">{{item.title}}</text>
 						<text class="time2">{{parseInt(item.create_time)*1000 | time}}</text>
@@ -194,15 +206,16 @@
 					</view>
 				</view>
 			</view>
-				<view class="NewCurriculum" style="margin: 30rpx; 0">
-					<view class="title3" v-if="zxkc">
-						<text class="headline">精品推荐</text>
-						<text class="icon more" @click="jpmore">更多</text>
-					</view>	
-					<view></view>
-				</view>
+			<!-- 精品推荐 -->
+			<view class="NewCurriculum tui-skeleton-rect" style="margin: 30rpx; 0">
+				<view class="title3" v-if="zxkc">
+					<text class="headline">精品推荐</text>
+					<text class="icon more" @click="jpmore">更多</text>
+				</view>	
+				<view></view>
+			</view>
 			<view class="wqkc">
-				<view class="ul-box">
+				<view class="ul-box tui-skeleton-rect">
 					<view class="li-box" v-for="(item, index) in zxkc" :key="index" @click="jp(item.id)">
 						<view class="top">
 							<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image>
@@ -213,12 +226,12 @@
 					</view>
 				</view>
 			</view>		
-
-			<view class="NewCurriculum" style="margin-top: 30upx;">
+			<!-- 合作伙伴 -->
+			<view class="NewCurriculum  tui-skeleton-rect" style="margin-top: 30upx;">
 				<view class="title3">
 					<text class="headline">合作伙伴</text>
 				</view>
-				<view class="hezuoimg">
+				<view class="hezuoimg  tui-skeleton-rect">
 					<lazy-image realSrc="http://hmk.qmwhcb.cn/static/home/images/hzhb.png" placeholdSrc=""></lazy-image>
 				</view>
 			</view>
@@ -226,6 +239,7 @@
 				<text>没有更多数据了!</text>
 			</view>
 		</view>
+		<!-- 首页搜索列表展示 -->
 		<view class="Search" v-show="showSearch">
 			<view class="Search_list">
 				<view class="Search_item" v-for="list in searchData" @click="SearchDetail(list.id,list.szzd)" :key="list">
@@ -259,10 +273,15 @@
 </template>
 
 <script>
-	
+	import tuiSkeleton from "@/components/Thorui/components/tui-skeleton/tui-skeleton"
+	const thorui = require("@/components/Thorui/components/utils/clipboard.thorui.js")
 	export default {
+		components: {
+			tuiSkeleton
+		},
 		data() {
 			return {
+				skeletonShow: true,
 				//全屏loading开关
 				graceFullLoading : true,
 				windowHeight: '',
@@ -346,7 +365,6 @@
 							let buttons = '美'
 							//buttons = '\ue670' 如果是字体图标需要引入ttf文件
 							var currentWebview = this.$mp.page.$getAppWebview();
-							console.log(currentWebview)
 							var tn = currentWebview.getStyle().titleNView;  
 							tn.buttons[0].text = buttons;     //[0] 按钮的下标
 							currentWebview.setStyle({ 
@@ -364,7 +382,6 @@
 			this.$request.indextop().then(res =>{
 				res = JSON.parse(res);
 				this.resData = res.img;
-				console.log(res.zt)
 				if(res.zt == 0) {
 					this.modelshow = false;
 				}else {
@@ -461,7 +478,6 @@
 			/* 获取banner请求 */
 			this.$request.banner().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.banner  = res.banner;
 				this.wmhbanner = res.wmh;
 				this.show = true;
@@ -472,7 +488,6 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.qmwh = res.qmwh;
 				this.qmwh_img = res.qmwh_img;
 				this.qmxz_info = res.qmxz_info;
@@ -484,7 +499,6 @@
 				this.zbimg = res.zb_img;
 				//直播开关
 				this.zbkc_switch = res.zbkc_switch;
-				console.log(res)
 				this.show = true;				
 			},err =>{
 				console.log(err)
@@ -492,7 +506,6 @@
 			//进驻企业请求
 			this.$request.zjqy().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.zjqy = res;
 			},err =>{
 				console.log(err)
@@ -500,7 +513,6 @@
 			//医美项目请求
 			this.$request.ymxm().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.ymxm = res;
 			},err =>{
 				console.log(err)
@@ -508,7 +520,6 @@
 			//生美项目
 			this.$request.smxm().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.smxm = res;
 			},err =>{
 				console.log(err)
@@ -516,16 +527,17 @@
 			/* 获取首页商品请求 */
 			this.$request.indexShop().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.commonItem = res;
 			},err =>{
 				console.log(err)
 			})
 			this.$request.qbsp().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.qbsp = res;
-				this.graceFullLoading = false;
+				setTimeout(() => {
+					this.graceFullLoading = false;
+				},1800)
+				
 			},err =>{
 				console.log(err)
 			})	
@@ -542,11 +554,9 @@
 
 					}else {
 						if(bbh > i_bbh) {
-							console.log("成立了")
 							let buttons = '美'
 							//buttons = '\ue670' 如果是字体图标需要引入ttf文件
 							var currentWebview = this.$mp.page.$getAppWebview();
-							console.log(currentWebview)
 							var tn = currentWebview.getStyle().titleNView;  
 							tn.buttons[0].text = buttons;     //[0] 按钮的下标
 							currentWebview.setStyle({ 
@@ -576,7 +586,6 @@
 							let buttons = '美'
 							//buttons = '\ue670' 如果是字体图标需要引入ttf文件
 							var currentWebview = this.$mp.page.$getAppWebview();
-							console.log(currentWebview)
 							var tn = currentWebview.getStyle().titleNView;  
 							tn.buttons[0].text = buttons;     //[0] 按钮的下标
 							currentWebview.setStyle({ 
@@ -615,25 +624,20 @@
 			})
 		},
 		onShow: async function(e) {
-			this.showSearch = false;
 			this.show = true;
 		},
 		onTabItemTap: async function(e) {
-			this.showSearch = false;
 			this.show = true;
 		},
 		onNavigationBarSearchInputChanged: async function(e) {
 			if(!e.text) {
-				this.showSearch = false;
 				this.show = true;
 			}
 		},
 		// 标题栏input搜索框点击(请在真机上测试)
 		onNavigationBarSearchInputConfirmed: async function(e) {
-			this.showSearch = true;
 			var SearchName = e.text;
 			if(!SearchName) {
-				this.showSearch = false;
 				this.show = true;
 			}
 			if(SearchName) {
@@ -641,7 +645,6 @@
 					key: SearchName
 				}).then(res =>{
 					res = JSON.parse(res);
-					console.log(res)
 					this.resSearch = res;
 					this.show = false;
 					this.sszd = this.resSearch.map((items) => {

@@ -1,7 +1,7 @@
 <template>
 	<view class="tui-drawer-class tui-drawer" :class="[visible ? 'tui-drawer-show' : '','tui-drawer-' + mode]">
-		<view v-if="mask" class="tui-drawer-mask" @tap="handleMaskClick"></view>
-		<view class="tui-drawer-container">
+		<view v-if="mask" class="tui-drawer-mask" @tap="handleMaskClick" @touchmove.stop.prevent></view>
+		<view class="tui-drawer-container" @touchmove.stop.prevent>
 			<slot></slot>
 		</view>
 	</view>
@@ -78,7 +78,7 @@
 	.tui-drawer-container {
 		position: fixed;
 		left: 50%;
-		height: 100%;
+		height: 100.2%;
 		top: 0;
 		transform: translate3d(-50%, -50%, 0);
 		transform-origin: center;
