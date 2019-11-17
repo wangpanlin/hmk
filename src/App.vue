@@ -20,6 +20,7 @@
 	@import "./static/iconfont/iconfont.css";
 	/* colorUI样式 */
 	@import "./components/colorui/main.css";
+	@import "./components/colorui/icon.css";
 	/* 富文本解析样式 */
 	@import url("/components/gaoyia-parse/parse.css");
 	/* 锤子UI样式 */

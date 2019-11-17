@@ -128,7 +128,7 @@
 							"borderRadius": "16px",
 							"placeholder": "美业知识,搜一下,全知道!",
 							//允许输入框点击
-							"disabled": false,
+							"disabled": true,
 							"placeholderColor": "#333"
 						},
 						"buttons": [{
@@ -169,19 +169,19 @@
 			}			
 		},
 		{
-			//搜索页面
-			"path":"pages/search/search",
+			//热门搜索页
+			"path": "pages/search/search",
 			"style": {
 				// #ifdef MP 
-				"navigationBarTitleText": "搜索",				
+				"navigationBarTitleText": "汇美客",
 				// #endif 
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "搜索"
+						"titleText": "汇美客"
 					}
 				}
-			}			
+			}  
 		},
 		{
 			//商品详情

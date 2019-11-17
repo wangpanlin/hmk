@@ -1,13 +1,18 @@
 <template>
 	<view>
-		<tui-skeleton  backgroundColor="#fafafa" borderRadius="10rpx" v-if="graceFullLoading"></tui-skeleton>
 		<!-- 全屏loading -->
-		<!-- <graceFullLoading :graceFullLoading="graceFullLoading" logoUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565089003040&di=ca81c9cb9e712865bac7908eaa13cf30&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2Fallimg%2F170428%2F1554261k1-0.gif"></graceFullLoading> -->
+		<view class="loadingMask" @touchmove.stop.prevent='moveHandle' v-if="loadModal">
+			<view class="cu-load load-modal">
+				<image src="../../static/images/home/logo.png" mode="aspectFit"></image>
+				<view class="gray-text">加载中...</view>
+			</view>
+		</view>
+		<tui-skeleton  backgroundColor="#fafafa" borderRadius="10rpx" v-if="graceFullLoading"></tui-skeleton>
 		<view class="home tui-skeleton" v-if="show">
 			<!-- 首页顶部轮播 -->
 			<swiper class="swiper tui-skeleton-rect" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
 				<swiper-item v-for="(item, index) in banner" :key="index">
-					<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
+					<view class="swiper-item" @click="goPage(item.tzgz,item.tzd)"><image :src="imgUrl + item.images"></image></view>
 				</swiper-item>
 			</swiper>
 			<!-- 首页顶部导航 -->
@@ -30,7 +35,7 @@
 				</view>
 			</view>
 			<!-- 课程预约 -->
-			<view class="bespoke tui-skeleton-fillet" >
+			<view class="bespoke tui-skeleton-fillet">
 				<view>
 					<text class="title1">{{title.title1}}</text>
 					<text class="title2">{{title.title2}}</text>
@@ -38,13 +43,13 @@
 				<button @click="yuyue">立即预约</button>
 			</view>
 			<!-- 秋梅新知 -->
-			<view>
-				<view class="NewCurriculum tui-skeleton-rect">
+			<view class="tui-skeleton-fillet">
+				<view class="NewCurriculum">
 					<view class="title3">
 						<text class="headline">{{qmwh}}</text>
 					</view>
 				</view>
-				<view class="propaganda tui-skeleton-rect" @click="propaganda">
+				<view class="propaganda" @click="propaganda">
 					<image :src="qmwh_img"></image>
 					<view>
 						<text class="fw">《{{qmxz_title}}》</text>
@@ -95,7 +100,7 @@
 					<text class="headline">落地版块</text>
 					<text class="icon more" @click="zjmore">更多</text>
 				</view>
-				<view class="gwa tui-skeleton-rect" v-for="(item, index) in zjqy" :key="index" @click="zj(item.id)">
+				<view class="gwa" v-for="(item, index) in zjqy" :key="index" @click="zj(item.id)">
 					<image :src="imgUrl + item.img"></image>
 					<view class="flexC">
 						<text class="f30">《{{item.title}}》</text>
@@ -106,8 +111,7 @@
 			</view>	
 			<!-- 底部轮播 -->
 			<view class="NewCurriculum tui-skeleton-rect">
-
-				<swiper class="swiper2 tui-skeleton-rect" style="margin-top: 30upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
+				<swiper class="swiper2" style="margin-top: 30upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
 					<swiper-item v-for="(item, index) in wmhbanner" :key="index">
 						<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
 					</swiper-item>
@@ -115,13 +119,13 @@
 			</view>
 			<!-- 医美、生美项目 -->
 			<view class="Item-box">
-				<view class="NewCurriculum tui-skeleton-rect">
-					<view class="title3">
+				<view class="NewCurriculum">
+					<view class="title3 tui-skeleton-rect">
 						<text class="headline">医美项目</text>
 						<text class="icon more" @click="commonmore">更多</text>
 					</view>	
 				</view>
-				<view class="commonItem tui-skeleton-rect" >
+				<view class="commonItem tui-skeleton-rect">
 					<view class="view-box" v-for="(item,index) in ymxm" :key="index" @click="ym(item.id)">
 						<view class="img2"><lazy-image :realSrc="imgUrl + item.img" :placeholdSrc="placeholderSrc"></lazy-image></view>
 						<text class="biaoti">《{{item.title}}》</text>
@@ -137,7 +141,7 @@
 						<text class="icon more" @click="commonmore2">更多</text>
 					</view>	
 				</view>
-				<view class="commonItem tui-skeleton-rect" >
+				<view class="commonItem tui-skeleton-rect">
 					<view class="view-box" v-for="(item,index) in smxm" :key="index" @click="sm(item.id)">
 						<view class="img2"><lazy-image :realSrc="imgUrl + item.img" :placeholdSrc="placeholderSrc"></lazy-image></view>
 						<text class="biaoti">《{{item.title}}》</text>
@@ -155,8 +159,8 @@
 					<text class="icon more" @click="shopMore">更多</text>
 				</view>	
 			</view>
-			<view class="commonItem" >
-				<view class="view-box tui-skeleton-rect" @click="shopDetail(item.id)" v-for="(item,index) in qbsp" :key="index">
+			<view class="commonItem tui-skeleton-rect">
+				<view class="view-box" @click="shopDetail(item.id)" v-for="(item,index) in qbsp" :key="index">
 					<view class="img2"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 					<text class="biaoti">《{{item.title}}》</text>
 					<text class="duanluo" style="font-size: 22upx;">{{item.abstract}}</text>
@@ -190,15 +194,15 @@
 				</view>
 			</view>
 			<!-- 行业动态 -->
-			<view class="share">
-				<view class="NewCurriculum tui-skeleton-rect">
+			<view class="share tui-skeleton-rect">
+				<view class="NewCurriculum">
 					<view class="title3">
 						<text class="headline">行业动态</text>
 						<text class="icon more" @click="IndustryMore">更多</text>
 					</view>	
 					<view></view>
 				</view>
-				<view class="classItem2 tui-skeleton-rect" v-for="(item,index) in hydt" :key="index" @click="IndustryDetails(item.id)">
+				<view class="classItem2" v-for="(item,index) in hydt" :key="index" @click="IndustryDetails(item.id)">
 					<view>
 						<text class="user2" style="font-weight: bold;">{{item.title}}</text>
 						<text class="time2">{{parseInt(item.create_time)*1000 | time}}</text>
@@ -214,8 +218,8 @@
 				</view>	
 				<view></view>
 			</view>
-			<view class="wqkc">
-				<view class="ul-box tui-skeleton-rect">
+			<view class="wqkc tui-skeleton-rect">
+				<view class="ul-box">
 					<view class="li-box" v-for="(item, index) in zxkc" :key="index" @click="jp(item.id)">
 						<view class="top">
 							<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image>
@@ -227,7 +231,7 @@
 				</view>
 			</view>		
 			<!-- 合作伙伴 -->
-			<view class="NewCurriculum  tui-skeleton-rect" style="margin-top: 30upx;">
+			<view class="NewCurriculum tui-skeleton-rect" style="margin-top: 30upx;">
 				<view class="title3">
 					<text class="headline">合作伙伴</text>
 				</view>
@@ -242,19 +246,19 @@
 		<!-- 首页搜索列表展示 -->
 		<view class="Search" v-show="showSearch">
 			<view class="Search_list">
-				<view class="Search_item" v-for="list in searchData" @click="SearchDetail(list.id,list.szzd)" :key="list">
+				<view class="Search_item" v-for="(item, index) in resSearch" @click="SearchDetail(item.id,item.szzd)" :key="index">
 					<view class="search_img">
-						<lazy-image :realSrc="imgUrl + list.photo" :placeholdSrc="placeholderSrc"></lazy-image>
+						<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image>
 					</view>
 					<view class="search_img_content">
-						<text class="search_title">{{list.title}}</text>
-						<text class="search_text">{{bb}}</text>
-						<text class="search_yzd" v-if="list.kcmoney == 0">{{list.gmsl}}课时券</text>
-						<text class="search_yzd" v-if="list.kcmoney == 1">{{list.gmsl}}积分</text>
-						<text class="search_yzd" v-if="list.cpmoney == 1">{{list.gmsl}}元</text>
-						<text class="search_yzd" v-if="list.kcmoney == 2">{{list.gmsl}}颜值豆</text>
-						<text class="search_yzd" v-if="list.cpmoney == 2">{{list.gmsl}}元</text>
-						<text class="search_yzd" v-if="list.kcmoney == 3 || list.cpmoney == 0">免费</text>
+						<text class="search_title">{{item.title}}</text>
+						<text class="search_text">{{keywords}}</text>
+						<text class="search_yzd" v-if="item.kcmoney == 0">{{item.gmsl}}课时券</text>
+						<text class="search_yzd" v-if="item.kcmoney == 1">{{item.gmsl}}积分</text>
+						<text class="search_yzd" v-if="item.cpmoney == 1">{{item.gmsl}}元</text>
+						<text class="search_yzd" v-if="item.kcmoney == 2">{{item.gmsl}}颜值豆</text>
+						<text class="search_yzd" v-if="item.cpmoney == 2">{{item.gmsl}}元</text>
+						<text class="search_yzd" v-if="item.kcmoney == 3 || item.cpmoney == 0">免费</text>
 					</view>
 				</view>
 			</view>
@@ -281,9 +285,11 @@
 		},
 		data() {
 			return {
+				moveHandle: true,
 				skeletonShow: true,
+				loadModal: true,
 				//全屏loading开关
-				graceFullLoading : true,
+				graceFullLoading: true,
 				windowHeight: '',
 				tabbar: true,
 				//搜索的课程名称
@@ -327,7 +333,7 @@
 				sszd: '',
 				//是否显示搜索模板
 				showSearch: false,
-				bb: '',
+				keywords: '',
 				//秋梅文化标题
 				qmwh: '',
 				//秋梅文化图片
@@ -478,9 +484,9 @@
 			/* 获取banner请求 */
 			this.$request.banner().then(res =>{
 				res = JSON.parse(res);
+				console.log(res)
 				this.banner  = res.banner;
 				this.wmhbanner = res.wmh;
-				this.show = true;
 			},err =>{
 				console.log(err)
 			})
@@ -499,7 +505,13 @@
 				this.zbimg = res.zb_img;
 				//直播开关
 				this.zbkc_switch = res.zbkc_switch;
-				this.show = true;				
+				setTimeout(() => {
+					this.graceFullLoading = false;
+				},1500)
+				setTimeout(() => {
+					this.loadModal = false;
+				},2000)
+				
 			},err =>{
 				console.log(err)
 			})
@@ -534,13 +546,13 @@
 			this.$request.qbsp().then(res =>{
 				res = JSON.parse(res);
 				this.qbsp = res;
-				setTimeout(() => {
-					this.graceFullLoading = false;
-				},1800)
-				
 			},err =>{
 				console.log(err)
 			})	
+		},
+		onBackPress() {
+			this.loadModal = false;
+			this.graceFullLoading = false;
 		},
 		onReady() {
 			//#ifdef APP-PLUS
@@ -569,6 +581,9 @@
 				})
 			});
 			//#endif
+		},
+		onShow: async function(e) {
+			this.show = true;
 		},
 		onPullDownRefresh: function (){
 			//#ifdef APP-PLUS
@@ -623,11 +638,10 @@
 				console.log(err)
 			})
 		},
-		onShow: async function(e) {
-			this.show = true;
-		},
-		onTabItemTap: async function(e) {
-			this.show = true;
+		onNavigationBarSearchInputClicked: async function(e) {
+			uni.navigateTo({
+				url: '/pages/search/search'
+			})
 		},
 		onNavigationBarSearchInputChanged: async function(e) {
 			if(!e.text) {
@@ -645,25 +659,30 @@
 					key: SearchName
 				}).then(res =>{
 					res = JSON.parse(res);
+					console.log(res)
 					this.resSearch = res;
 					this.show = false;
-					this.sszd = this.resSearch.map((items) => {
-						if(items.szzd) {
-							return items.szzd.substring(items.szzd,30) + "...";
-						}
-					})
-					
-					this.bb = this.sszd.join(",");
-		
-					//搜索过滤返回
-					this.searchData = this.resSearch.filter((item) => {
-		
-						return Object.keys(item).some((key) => {
-							return String(item[key]).toLowerCase().indexOf(SearchName) > -1;
+					this.showSearch = true;
+					//如果搜索的是数组
+					if(this.resSearch.length > 1) {
+						this.sszd = this.resSearch.map((items) => {
+							if(items.szzd) {
+								return items.szzd.substring(items.szzd,30) + "...";
+							}
 						})
-					})
+						this.keywords = this.sszd.join(",");
+								
+						//搜索过滤返回
+						this.searchData = this.resSearch.filter((item) => {
+							return Object.keys(item).some((key) => {
+								return String(item[key]).toLowerCase().indexOf(SearchName) > -1;
+							})
+						})
+					}else {
+						
+					}
 					if(res == -1) {
-						this.$msg("未搜索到该商品！");
+						this.$msg("未搜索到该内容！");
 					}
 				},err =>{
 					console.log(err)
@@ -722,6 +741,33 @@
 			}
 		},
 		methods: {
+			goPage(tzgz,tzd) {
+				if(tzgz == 1) {
+					uni.navigateTo({
+						url: `/pages/NotPurchased/NotPurchased?id=${tzd}`
+					});
+				}else if(tzgz == 2) {
+					uni.navigateTo({
+						url: `/pages/gwaDetail/gwaDetail?id=${tzd}`
+					});
+				}else if(tzgz == 3) {
+					uni.navigateTo({
+						url: `/pages/xmDetail/xmDetail?id=${tzd}`
+					});
+				}else if(tzgz == 4) {
+					uni.navigateTo({
+						url: `/pages/xmDetail/xmDetail?id=${tzd}`
+					});
+				}else if(tzgz == 5) {
+					uni.navigateTo({
+						url: `/pages/shopDetail/shopDetail?id=${tzd}`
+					});
+				}else if(tzgz == 6) {
+					uni.navigateTo({
+						url: `pages/IndustryDetails/IndustryDetails?id=${tzd}`
+					});
+				}
+			},
 			showTabbar() {
 				uni.showTabBar()
 			},
@@ -986,7 +1032,15 @@
 	    {
 	        display: none;
 	    }
-
+	.loadingMask {
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		background: rgba(0,0,0,.5);
+		z-index: 999999;
+	}
 	.home {
 		width: 100%;
 		box-sizing: border-box;

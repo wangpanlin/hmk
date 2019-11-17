@@ -241,6 +241,10 @@
   content: "\e64f";
 }
 
+.icon-huo:before {
+  content: "\e6d0";
+}
+
 .icon-bofangliebiao:before {
   content: "\e634";
 }
@@ -265,6 +269,10 @@
   content: "\e63c";
 }
 
+.icon-yuyin:before {
+  content: "\e649";
+}
+
 .icon-dianzan:before {
   content: "\e610";
 }
@@ -272,4 +280,10 @@
 .icon-weibiaoti-_huabanfuben:before {
   content: "\e6cb";
 }
+
+.icon-guanbi:before {
+  content: "\e66c";
+}
+
+
 

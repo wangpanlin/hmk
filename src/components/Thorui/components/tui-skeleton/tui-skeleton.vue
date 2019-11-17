@@ -1,8 +1,10 @@
 <template>
-	<view class="tui-skeleton-cmomon tui-skeleton-box" :style="{width: winWidth+'px', height:winHeight+'px', backgroundColor:backgroundColor}">
-		<view class="tui-skeleton-cmomon" v-for="(item,index) in skeletonElements" :key="index" :style="{width: item.width+'px', height:item.height+'px', left: item.left+'px', top: item.top+'px',backgroundColor: skeletonBgColor,borderRadius:getRadius(item.skeletonType,borderRadius)}"></view>
-		<view class="tui-loading" :class="[getLoadingType(loadingType)]"></view>
+	<view class="skeleton">
+		<view class="tui-skeleton-cmomon tui-skeleton-box" :style="{width: winWidth+'px', height:winHeight+'px', backgroundColor:backgroundColor}">
+			<view class="tui-skeleton-cmomon" v-for="(item,index) in skeletonElements" :key="index" :style="{width: item.width+'px', height:item.height+'px', left: item.left+'px', top: item.top+'px',backgroundColor: skeletonBgColor,borderRadius:getRadius(item.skeletonType,borderRadius)}"></view>
+		</view>
 	</view>
+
 </template>
 
 <script>
@@ -45,16 +47,6 @@
 				default () {
 					return []
 				}
-			},
-			//是否需要loading
-			loading: {
-				type: Boolean,
-				default: true
-			},
-			//loading类型[1-10]
-			loadingType: {
-				type: Number,
-				default: 1
 			}
 		},
 		created() {
@@ -94,13 +86,6 @@
 			};
 		},
 		methods: {
-			getLoadingType: function(type) {
-				let value = 1
-				if (type && type > 0 && type < 11) {
-					value = type
-				}
-				return 'tui-loading-' + value
-			},
 			getRadius: function(type, val) {
 				let radius = "0"
 				if (type == "circular") {
@@ -159,81 +144,39 @@
 </script>
 
 <style>
-	.tui-skeleton-cmomon {
+	.skeleton {
+		width: 100%;
+		height: 100%;
 		position: fixed;
 		left: 0;
-		top: 0;
 		/* #ifdef H5 */
-		top: 44px !important;
+		top: 44px;
 		/* #endif */
+		right: 0;
+		bottom: 0;
+		z-index: 99;
+	}
+	.tui-skeleton-cmomon {
+		position: absolute;
+		left: 0;
+		top: 0;
 		bottom: 0;
 		right: 0;
-		z-index: 99;
 		overflow: hidden;
+		/* #ifdef H5 */
+		-webkit-animation-name: fadeIn; /*动画名称*/
+		-webkit-animation-duration: 2s; /*动画持续时间*/
+		-webkit-animation-iteration-count: 1; /*动画次数*/
+		-webkit-animation-delay: 1s; /*延迟时间*/
+		-webkit-animation-fill-mode: forwards;
+		/* #endif */
 	}
 
 	.tui-skeleton-box {
 		left: 0;
 		top: 0;
 	}
-
-	.tui-loading {
-		display: inline-block;
-		vertical-align: middle;
-		width: 40rpx;
-		height: 40rpx;
-		background: 0 0;
-		border-radius: 50%;
-		border: 2px solid;
-		animation: tui-rotate 0.7s linear infinite;
-		position: fixed;
-		z-index: 999999;
-		left: 50%;
-		top: 50%;
-		margin-left: -20rpx;
-		margin-top: -20rpx;
-	}
-
-	.tui-loading-1 {
-		border-color: #e5e5e5 #e5e5e5 #e5e5e5 #5677fc;
-	}
-
-	.tui-loading-2 {
-		border-color: #e5e5e5 #e5e5e5 #e5e5e5 #8f8d8e;
-	}
-
-	.tui-loading-3 {
-		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #fff;
-	}
-
-	.tui-loading-4 {
-		border-color: #e5e5e5 #e5e5e5 #e5e5e5 #35b06a;
-	}
-
-	.tui-loading-5 {
-		border-color: #e5e5e5 #e5e5e5 #e5e5e5 #fc872d;
-	}
-
-	.tui-loading-6 {
-		border-color: #e5e5e5 #e5e5e5 #e5e5e5 #eb0909;
-	}
-
-	.tui-loading-7 {
-		border-color: #5677fc transparent #5677fc transparent;
-	}
-
-	.tui-loading-8 {
-		border-color: #35b06a transparent #35b06a transparent;
-	}
-
-	.tui-loading-9 {
-		border-color: #fc872d transparent #fc872d transparent;
-	}
-
-	.tui-loading-10 {
-		border-color: #eb0909 transparent #eb0909 transparent;
-	}
-
+	/* #ifdef H5 */
 	@-webkit-keyframes tui-rotate {
 		0% {
 			transform: rotate(0);
@@ -253,4 +196,15 @@
 			transform: rotate(360deg);
 		}
 	}
+
+	@-webkit-keyframes fadeIn {
+		0% {
+			background: rgba(233, 233, 233, 1);
+		}
+
+		100% {
+			background: rgba(233, 233, 233, 0);
+		}
+	}
+	/* #endif */
 </style>

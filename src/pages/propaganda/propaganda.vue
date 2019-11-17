@@ -5,14 +5,16 @@
 			<view class="title">
 				<view class="view">
 					<text class="fw">{{item.title}}</text>
-					<text>这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</text>
+					<text>{{item.info}}</text>
 				</view>
 				<view class="bottom">
 					<view @click="dianzan(index,item.dz,item.id,item.num)" class="dianzan">
 						<text class="thumbs icon" :class="{red:item.dz}">&#xe610;<text>点赞{{item.num}}</text></text>
 					</view>
-					<view>
-						<uni-fav :checked="checked" class="favBtn" circle="true" bg-color="#dd524d" bg-color-checked="#007aff" @click="fav" />
+					<view class="liebiao" @click="collectFunc(item.id, item.is_sc,index)">
+						<text class="icon red" v-if="item.is_sc">&#xe635;</text>
+						<text class="icon no" v-else>&#xe608;</text>
+						<text>收藏</text>
 					</view>
 				</view>
 			</view>
@@ -33,14 +35,14 @@ export default {
 	data() {
 		return {
 			playIngIndex : null,
-			videoList : [
-
-			],
+			videoList : [],
 			videoContext : null,
 			timer : null,
 			num: 0,
 			dz: 0,
-			checked: false
+			checked: false,
+			collect: 0,
+			is_sc: 0
 		}
 	},
 	onLoad:function(){
@@ -50,6 +52,11 @@ export default {
 			res = JSON.parse(res);
 			console.log(res);
 			this.videoList = res;
+			this.videoList.map((item) => {
+				if(item.is_sc > 0) {
+					this.collect = true
+				}
+			})
 		},err =>{
 			console.log(err)
 		})
@@ -70,6 +77,20 @@ export default {
 		this.timer = setTimeout(function(){this.scrollPlay(e);}.bind(this), 200);
 	},
 	methods: {
+		//点击收藏
+		collectFunc(id,is_sc,idx){
+			this.videoList[idx].is_sc=!this.videoList[idx].is_sc
+			/* 获取收藏接口请求 */
+			this.$request.collect({
+				id: id,
+				zt: this.videoList[idx].is_sc
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+			},err =>{
+				console.log(err)
+			})
+		},
 		fav() {
 			this.checked = !this.checked;
 		},

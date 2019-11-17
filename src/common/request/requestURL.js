@@ -196,5 +196,7 @@ export default {
 	//绑定手机号
 	bindPhone: `${baseurl}/Register/bdsjhm`,
 	//个人中心绑定微信
-	bindWX: `${baseurl}/Personal/bdwx`
+	bindWX: `${baseurl}/Personal/bdwx`,
+	//热门搜索展示
+	getrs: `${baseurl}/search/getrs`
 }

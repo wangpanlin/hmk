@@ -470,5 +470,10 @@ export default {
 	bindWX: async function (prams) {
 		let response = await request.Fetch(requestURL.bindWX,prams,'POST',true,true)
 		return response;
+	},
+	//热门搜索展示
+	getrs: async function (prams) {
+		let response = await request.Fetch(requestURL.getrs,prams,'POST',true,true)
+		return response;
 	}
 }
