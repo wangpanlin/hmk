@@ -475,5 +475,25 @@ export default {
 	getrs: async function (prams) {
 		let response = await request.Fetch(requestURL.getrs,prams,'POST',true,true)
 		return response;
-	}
+	},
+	//行业动态收藏
+	hydtsc: async function (prams) {
+		let response = await request.Fetch(requestURL.hydtsc,prams,'GET',true,true)
+		return response;
+	},
+	//行业动态点赞
+	hydtdz: async function (prams) {
+		let response = await request.Fetch(requestURL.hydtdz,prams,'GET',true,true)
+		return response;
+	},
+	//行业动态发表评论
+	hydtpl: async function (prams) {
+		let response = await request.Fetch(requestURL.hydtpl,prams,'GET',true,true)
+		return response;
+	},
+	//商务合作
+	swhz: async function (prams) {
+		let response = await request.Fetch(requestURL.swhz,prams,'POST',true,true)
+		return response;
+	},
 }

@@ -271,7 +271,6 @@
 				<image v-if="resData.length" :src="resData" mode=""></image>
 				<view><text @click="Inow">我知道了</text></view>
 			</view>
-			
 		</view>
 </view>
 </template>
@@ -1038,7 +1037,6 @@
 		top: 0;
 		bottom: 0;
 		right: 0;
-		background: rgba(0,0,0,.5);
 		z-index: 999999;
 	}
 	.home {

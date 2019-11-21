@@ -198,5 +198,13 @@ export default {
 	//个人中心绑定微信
 	bindWX: `${baseurl}/Personal/bdwx`,
 	//热门搜索展示
-	getrs: `${baseurl}/search/getrs`
+	getrs: `${baseurl}/search/getrs`,
+	//行业动态收藏
+	hydtsc: `${baseurl}/article/sc`,
+	//行业动态点赞
+	hydtdz: `${baseurl}/article/dz`,
+	//行业动态发表评论
+	hydtpl: `${baseurl}/article/pl`,
+	//商务合作详情
+	swhz: `${baseurl}/personal/swhz`
 }

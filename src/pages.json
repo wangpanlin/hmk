@@ -703,6 +703,9 @@
 					"titleNView": {
 						"type": "default",
 						"titleText": "行业动态"
+					},
+					"softinput" : {
+						"mode" : "adjustPan"
 					}
 				}
 			}			
@@ -869,7 +872,21 @@
 					}
 				}
 			}			
-		}		
+		},
+		{	//
+			"path":"pages/Business/Business",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商务合作",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商务合作"
+					}
+				}
+			}			
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

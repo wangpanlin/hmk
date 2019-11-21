@@ -119,6 +119,13 @@
 				<view class="icon hui" style="font-size: 28upx;">&#xe656;</view>
 			</view>
 		</view>
+		<view class="diploma" @click="Business">
+			<text style="font-size: 30upx;">商务合作</text>
+			<view style="display: flex;">
+				<view class="icon hui" style="font-size: 26upx;">立即查看</view>
+				<view class="icon hui" style="font-size: 28upx;">&#xe656;</view>
+			</view>
+		</view>
 		<view class="diploma" @click="service">
 			<text style="font-size: 30upx;">帮助中心</text>
 			<view style="display: flex;">
@@ -307,6 +314,11 @@
 			StudyNotes() {
 				uni.navigateTo({
 					url: "/pages/StudyNotes/StudyNotes"
+				})
+			},
+			Business() {
+				uni.navigateTo({
+					url: "/pages/Business/Business"
 				})
 			},
 			//帮助中心
