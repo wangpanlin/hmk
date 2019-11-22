@@ -16,14 +16,24 @@
 			//落地版块
 			"path": "pages/gwaDetail/gwaDetail",
 			"style": {
-				"navigationBarTitleText": "落地版块",
-				"navigationStyle": "custom",
+				// #ifdef MP 
+				"navigationBarTitleText": "落地版块",				
+				// #endif 
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "落地版块"
+						"titleText": "落地版块",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
 					}
-				}		
+				}
 			}
 		},
 		{
@@ -193,7 +203,16 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "商品详情"
+						"titleText": "商品详情",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
 					}
 				}
 			}
@@ -305,7 +324,6 @@
 								"color": "#fff"
 							}
 						]
-						
 					}
 				}
 			}							
@@ -854,7 +872,16 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "秋梅文化"
+						"titleText": "秋梅文化",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
 					}
 				}
 			}			

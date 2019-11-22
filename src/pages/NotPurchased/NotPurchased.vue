@@ -1292,4 +1292,29 @@
 	.tui-hover {
 		background: rgba(0, 0, 0, 0.2)
 	}	
+	.hydtpl {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 138rpx;
+		display: flex;
+		height: 70rpx;
+		align-items: center;
+		input {
+			flex: 1;
+			height: 70rpx;
+			background-color: #fff;
+			padding-left: 50rpx;
+		}
+		button {
+			width: 150rpx;
+			height: 100%;
+			border-radius: 0;
+			font-size: 32rpx;
+			padding: 0;
+			margin: 0;
+			background: rgb(237, 130, 76);
+			color: #fff;
+		}
+	}
 </style>

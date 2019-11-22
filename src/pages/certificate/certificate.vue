@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
-		<view class="certificate" v-if="2<1">
+		<view class="certificate" >
 			<view class="box">
-				<view class="left" v-if="resData.xyxx">
+				<view class="left">
 					<text class="t1">学员证</text>
 					<view class="img">
-						<lazy-image :realSrc="imgUrl2 + resData.xyxx.head_img" placeholdSrc=""></lazy-image>
+						<lazy-image v-if="resData.xyxx" :realSrc="imgUrl2 + resData.xyxx.head_img" placeholdSrc=""></lazy-image>
 					</view>
-					<text class="t2">学号：{{ resData.xyxx.student_id}}</text>
+					<text class="t2" v-if="resData.xyxx">学号：{{ resData.xyxx.student_id}}</text>
 				</view>
 				<view class="right" v-if="resData.xyxx">
 					<text class="t4">{{resData.xyxx.nickname}}</text>
@@ -19,10 +19,11 @@
 					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559052483546&di=35792e4b0b4443af98edfc3f2936fb9f&imgtype=0&src=http%3A%2F%2Fimg3.cache.netease.com%2Fgame%2F2013%2F11%2F26%2F20131126143638f53f4.png"></image>
 				</view>
 				<view class="saoma">扫描二维码关注我吧</view> -->
+<!-- 				<view class="noData">
+					
+				</view> -->
 		</view>
-		<view class="noData" v-else>
-			
-		</view>
+
 	</view>
 
 </template>
@@ -40,7 +41,6 @@
 		onLoad() {
 				this.$request.xyz().then(res =>{
 					res = JSON.parse(res);
-					console.log(res)
 					this.resData = res;
 				},err =>{
 					console.log(err)

@@ -48,9 +48,7 @@
 							<view class="tui-share-text">{{item.name}}</view>
 						</view>
 					</view>
-					
 				</scroll-view>
-		
 				<scroll-view scroll-x class="tui-mt">
 					<view class="tui-share-bottom">
 						<view class="tui-share-item" :class="[shareList[1].operate.length-1===index?'tui-item-last':'']" v-for="(item,index) in shareList[1].operate"
@@ -234,6 +232,7 @@
 						console.log(res);
 						this.DetailsData = res;
 						this.DetailsData.content = this.DetailsData.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+						this.neirong = '';
 					},err =>{
 						console.log(err)
 					})

@@ -496,4 +496,24 @@ export default {
 		let response = await request.Fetch(requestURL.swhz,prams,'POST',true,true)
 		return response;
 	},
+	//商品评论
+	shoppl: async function (prams) {
+		let response = await request.Fetch(requestURL.shoppl,prams,'POST',true,true)
+		return response;
+	},
+	//落地版块详情点赞
+	lddz: async function (prams) {
+		let response = await request.Fetch(requestURL.lddz,prams,'GET',true,true)
+		return response;
+	},
+	//落地版块详情收藏
+	gwasc: async function (prams) {
+		let response = await request.Fetch(requestURL.gwasc,prams,'GET',true,true)
+		return response;
+	},
+	//落地版块详情评论
+	gwapinglun: async function (prams) {
+		let response = await request.Fetch(requestURL.gwapinglun,prams,'GET',true,true)
+		return response;
+	}
 }

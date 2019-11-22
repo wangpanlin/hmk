@@ -206,5 +206,14 @@ export default {
 	//行业动态发表评论
 	hydtpl: `${baseurl}/article/pl`,
 	//商务合作详情
-	swhz: `${baseurl}/personal/swhz`
+	swhz: `${baseurl}/personal/swhz`,
+	//商品评论
+	shoppl: `${baseurl}/shopapi/pl`,
+	//落地版块/生美/医美点赞
+	lddz: `${baseurl}/gwa/dz`,
+	//落地版块/生美医美收藏
+	gwasc: `${baseurl}/gwa/gwasc`,
+	//落地版块/生美医美评论
+	gwapinglun: `${baseurl}/gwa/pinglun`
+	
 }

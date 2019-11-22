@@ -3,14 +3,15 @@
 		<view class="banner">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="true" interval="5000" duration="500" style="height: 700rpx;">
-				<swiper-item style="height: 700rpx;">
-					<image v-if="shopDetail.photo" style="height: 700rpx;" :src="imgUrl + shopDetail.photo"></image>
+				<swiper-item style="height: 700rpx;" v-for="(item,index) in shopDetail.lunbotu" :key="index">
+					<image v-if="shopDetail.photo" style="height: 700rpx;" :src="imgUrl + item.pic"></image>
 				</swiper-item>
 			</swiper>
 		</view>
 		<view class="info">
 			<text class="price">¥ {{shopDetail.gmsl}}元</text>
 			<text style="margin-top: 10rpx;font-size: 30rpx;font-weight: bold;">{{shopDetail.title}}</text>
+			<text class="position">已售数量 {{shopDetail.yssl}}</text>
 		</view>
 		<view class="info2">
 			
@@ -20,6 +21,15 @@
 			<view style="padding: 0 20upx;">
 				<rich-text type="text" :nodes="shopDetail.content"></rich-text>
 			</view>
+			<view class="pt">
+				<view class="biaoti" v-if="shopDetail.content">精选评论</view>
+				<view class="pinglun" v-for="(item,index) in shopDetail.pinglun" :key="index" v-if="shopDetail.content">
+					<text>{{item.time}}</text>
+					<text class="name">{{item.nickname}}<text style="color: #333; font-size: 26rpx;margin-left: 40rpx;font-weight: normal;">{{index+1}}楼</text></text>
+					<text>{{item.nr}}</text>
+				</view>
+			</view>
+
 		</view>
 		<view class="footer">
 			<view class="t" @click="gohome">
@@ -35,7 +45,17 @@
 				<text class="icon homeicon">&#xe60a;</text>
 				<text>客服</text>
 			</view>
-			<button @click="gobuy()">立即购买</button>
+			<view class="t" @click="hydtpl">
+				<text class="icon homeicon">&#xe614;</text>
+				<text>评论</text>
+			</view>
+			<button @click="gobuy()">购买</button>
+		</view>
+		
+		<!-- 发表评论 -->
+		<view class="hydtpl" v-if="showpl">
+			<input type="text" placeholder="请输入评论内容" v-model="neirong">
+			<button @click="fabiao">发表</button>
 		</view>
 		
 		<!--底部选择层-->
@@ -72,6 +92,38 @@
 			</view>
 		</tui-bottom-popup>
 		<!--底部选择层-->
+		
+		<!-- 分享弹窗 -->
+		<tui-bottom-popup :show="popupShow2" @close="popup">
+			<view class="tui-share">
+				<view class="tui-share-title">分享到</view>
+				<scroll-view scroll-x style="padding-right:20upx">
+					<view class="tui-share-top">
+						<view class="tui-share-item" :class="[shareList.length-1===index?'tui-item-last':'']" v-for="(item,index) in shareList"
+						 :key="index" @tap="popup(item.name)">
+							<view class="tui-share-icon" hover-class="tui-hover" :hover-stay-time="150">
+								<image :src="item.url" style="width: 60upx; height: 60upx"></image>
+							</view>
+							<view class="tui-share-text">{{item.name}}</view>
+						</view>
+					</view>
+					
+				</scroll-view>
+		
+				<scroll-view scroll-x class="tui-mt">
+					<view class="tui-share-bottom">
+						<view class="tui-share-item" :class="[shareList[1].operate.length-1===index?'tui-item-last':'']" v-for="(item,index) in shareList[1].operate"
+						 :key="index" @tap="popup(item.name)">
+							<view class="tui-share-icon" hover-class="tui-hover" :hover-stay-time="150">
+								<tui-icon :name="item.icon" color="#404040" :size="item.size" :bold="index===2"></tui-icon>
+							</view>
+							<view class="tui-share-text">{{item.name}}</view>
+						</view>
+					</view>
+				</scroll-view>
+				<view class="tui-btn-cancle" @tap="hideBar">取消</view>
+			</view>
+		</tui-bottom-popup>
 	</view>
 </template>
 
@@ -126,7 +178,10 @@
 				dotStyle: false,
 				towerStart: 0,
 				shopDetail: {},
+				/* 购买弹窗显隐 */
 				popupShow: false,
+				/* 分享弹窗显隐 */
+				popupShow2: false,
 				value: 1,
 				//规格列表
 				skuList: [],
@@ -141,11 +196,37 @@
 				ggid: '',
 				//收藏状态
 				collect:0,
+				shareList: [
+				{
+					name: "微信",
+					url: "../../static/images/common/wx.png",
+					color: "#80D640"
+				}, 
+				{
+					name: "朋友圈",
+					url: "../../static/images/common/pyq.png",
+					color: "#80D640"
+				},
+				{
+					name: "QQ",
+					url: "../../static/images/common/qq.png",
+					color: "#80D640"
+				},
+				{
+					name: "新浪微博",
+					url: "../../static/images/common/xlwb.png",
+					color: "#F9C718"
+				}],
+				//评论显隐
+				showpl: false,
+				//发表的内容
+				neirong: ''
 			}
 		},
 		onLoad(options) {
+			this.id = options.id;
 			this.$request.shopDetail({
-				id: options.id
+				id: this.id
 			}).then(res =>{
 				res = JSON.parse(res);
 				console.log(res)
@@ -180,7 +261,15 @@
 			},err =>{
 				console.log(err)
 			})
-
+		},
+		//点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			// #ifdef APP-PLUS
+			this.popupShow2 = true;
+			// #endif
+			// #ifdef H5 || MP-WEIXIN
+				this.$msg("请在APP分享！")
+			// #endif
 		},
 		methods: {
 			goback() {
@@ -230,6 +319,41 @@
 					url: '/pages/my/my'
 				})				
 			},
+			fabiao() {
+				this.showpl = false;
+				this.$request.shoppl({
+					id: this.id,
+					info: this.neirong
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+					if(res == 1) {
+						this.$msg("评论成功！")
+						this.$request.shopDetail({
+							id: this.id
+						}).then(res =>{
+							res = JSON.parse(res);
+							console.log(res)
+							this.shopDetail = res;
+							this.shopDetail.content = this.shopDetail.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+							//显示商品收藏接口
+							this.$request.xsspsc({
+								id: this.shopDetail.id
+							}).then(res =>{
+								res = JSON.parse(res);
+								console.log(res)
+								this.collect = res.code;
+							},err =>{
+								console.log(err)
+							})
+						},err =>{
+							console.log(err)
+						})
+					}
+				},err =>{
+					console.log(err)
+				})
+			},
 			showPopup: function() {
 				this.popupShow = true
 			},
@@ -243,6 +367,48 @@
 					})
 				}
 
+			},
+			//点击分享
+			popup: function(name) {
+				this.popupShow2 = false;
+				switch(name) {
+					case '微信':
+					this.share('weixin','WXSceneSession',0);
+					break;
+					case '朋友圈':
+					this.share('weixin','WXSenceTimeline',0);
+					break;
+					case 'QQ':
+					this.share('qq','',1);
+					break;
+					case '新浪微博':
+					this.$msg("暂未开通新浪微博渠道！");
+					break;
+				}
+			},
+			share(a,b,c) {
+				uni.share({
+					provider: a,
+					scene: b,
+					type: c,
+					href: "https://a.app.qq.com/o/simple.jsp?pkgname=io.dcloud.UNI8FA329D",
+					title: this.shopDetail.title,
+					summary: this.shopDetail.abstract,
+					imageUrl: this.imgUrl + this.shopDetail.lunbotu[0].pic,
+					success: function (res) {
+						console.log("success:" + JSON.stringify(res));
+					},
+					fail: function (err) {
+						console.log("分享失败原因:" + JSON.stringify(err));
+					}
+				});
+			},
+			hideBar() {
+				this.popupShow2 = false;
+			},
+			//评论框展示
+			hydtpl() {
+				this.showpl = !this.showpl;
 			},
 			//关闭购买弹框
 			noshow() {
@@ -411,7 +577,13 @@
 					top: 40rpx;
 				}
 			}
-
+			.position {
+				position: absolute;
+				right: 100rpx;
+				top: 60rpx;
+				font-size: 28rpx;
+				color: #c1c1c1;
+			}
 		}
 		.detail {			
 			background-color: #fff;
@@ -425,6 +597,29 @@
 			}
 			image {
 				width: 100%;				
+			}
+			.pt {
+				padding-bottom: 200rpx;
+				.biaoti {
+					padding: 0 30rpx;
+					font-size: 40rpx;
+					font-weight: bold;
+					margin-bottom: 30rpx;
+				}
+				.pinglun {
+					padding: 0 30rpx;
+					margin-bottom: 40rpx;
+					display: flex;
+					flex-direction: column;
+					text {
+						margin-bottom: 20rpx;
+						font-size: 28rpx;
+					}
+					text.name {
+						font-size: 34rpx;
+						font-weight: bold;
+					}
+				}
 			}
 		}
 		.footer {
@@ -593,5 +788,155 @@
 		justify-content: space-between;
 		padding: 20upx 0 30upx 0;
 		box-sizing: border-box;
+	}
+	.top-dropdown {
+		margin-top: 360upx;
+		padding: 0 40upx;
+		box-sizing: border-box;
+	}
+	
+	.tui-share-box {
+		padding: 0 50upx;
+		box-sizing: border-box;
+	}
+	
+	.tui-drop-input-box {
+		padding: 50upx;
+		box-sizing: border-box;
+	}
+	
+	.tui-animation {
+		display: inline-block;
+		transform: rotate(0deg);
+		transition: all 0.2s;
+	}
+	
+	.tui-animation-show {
+		transform: rotate(180deg);
+	}
+	
+	.tui-selected-list {
+		background: #fff;
+		border-radius: 20upx;
+		overflow: hidden;
+		transform: translateZ(0);
+	}
+	
+	.tui-dropdown-scroll {
+		height: 400upx;
+	}
+	
+	.tui-cell-class {
+		display: flex;
+		align-items: center;
+		padding: 26upx 30upx !important;
+	}
+	
+	.tui-ml-20 {
+		margin-left: 20upx;
+	}
+	
+	.tui-share {
+		background: #e8e8e8;
+		position: relative;
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+	
+	.tui-share-title {
+		font-size: 26upx;
+		color: #7E7E7E;
+		text-align: center;
+		line-height: 26upx;
+		padding: 20upx 0 50upx 0;
+	}
+	
+	.tui-share-top,
+	.tui-share-bottom {
+		min-width: 101%;
+		padding:0 20upx 0 30upx;
+		white-space: nowrap;
+	}
+	
+	.tui-mt {
+		padding-bottom: 150upx;
+	}
+	
+	.tui-share-item {
+		width: 126upx;
+		display: inline-block;
+		margin-right: 24upx;
+		text-align: center;
+	}
+	
+	.tui-item-last {
+		margin: 0;
+	}
+	
+	.tui-empty {
+		display: inline-block;
+		width: 30upx;
+		visibility: hidden;
+	}
+	
+	.tui-share-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fafafa;
+		height: 126upx;
+		width: 126upx;
+		border-radius: 32upx;
+	}
+	
+	.tui-share-text {
+		font-size: 24upx;
+		color: #7E7E7E;
+		line-height: 24upx;
+		padding: 20upx 0;
+		white-space: nowrap;
+	}
+	
+	.tui-btn-cancle {
+		width: 100%;
+		height: 100upx;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		background: #f6f6f6;
+		font-size: 36upx;
+		color: #3e3e3e;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+	
+	.tui-hover {
+		background: rgba(0, 0, 0, 0.2)
+	}	
+	.hydtpl {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 120rpx;
+		display: flex;
+		height: 70rpx;
+		align-items: center;
+		input {
+			flex: 1;
+			height: 70rpx;
+			background-color: #fff;
+			padding-left: 50rpx;
+		}
+		button {
+			width: 154rpx;
+			height: 100%;
+			border-radius: 0;
+			font-size: 32rpx;
+			padding: 0;
+			margin: 0;
+			background: rgb(237, 130, 76);
+			color: #fff;
+		}
 	}
 </style>

@@ -11,7 +11,7 @@
 			</view>		
 		</view>
 		
-		<view class="end">
+		<view class="end" v-if="gwaList.length">
 			<text>—— 没有更多了 ——</text>
 		</view>
 	</view>
