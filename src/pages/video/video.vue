@@ -144,7 +144,8 @@
 				spid: '',
 				//评论数据
 				xjdata: [],
-				isDisable: false
+				isDisable: false,
+				EndDuration: ''
 			}
 		},
 		computed: {
@@ -190,8 +191,18 @@
 				console.log(err)
 			})
 		},
-		onReady() {
+		onBackPress() {
+			console.log("123")
 			
+			this.$request.addsc({
+				xjid: this.spid,
+				xxsc: this.EndDuration
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			yb(spid) {
@@ -226,49 +237,6 @@
 				uni.navigateBack({
 					delta: 1
 				})
-			},
-			download() {
-				/* 获取下载接口 */
-				this.$request.download({
-					id: this.id,
-					jsid: this.jsid,
-					yplx: this.ypls,
-					url: this.videoData.url
-				}).then(res =>{
-					res = JSON.parse(res);
-					console.log(res)
-					if(res.code === 1) {
-						uni.showLoading({
-							title: '下载中，请勿退出！'
-						})
-						
-						uni.downloadFile({
-							url: this.videoData.url, //仅为示例，并非真实的资源
-							success: (res) => {								
-								if (res.statusCode === 200) {
-									uni.hideLoading()
-									this.xiazai = true;
-									this.$msg("下载成功！")
-									var tempFilePath = res.tempFilePath
-									console.log(tempFilePath)
-									uni.saveFile({
-										tempFilePath: tempFilePath,
-										success: function (res) {
-											console.log(res.savedFilePath)
-											var savedFilePath = res.savedFilePath;
-											
-										}
-									});
-								}
-							}
-						});
-						this.$msg(res.msg);
-					}else {
-						this.$msg(res.msg);
-					}
-				},err =>{
-					console.log(err)
-				})					
 			},
 			//点击分享
 			popup: function(name) {
@@ -311,14 +279,11 @@
 			hideBar() {
 				this.popupShow = false;
 			},
-			timeupdate() {
-				console.log("监听时长")
-				
-				
+			timeupdate(e) {
+				this.EndDuration = e.detail.currentTime;
 			},
 			//末尾判断下一个是否为正片
 			ended() {
-
 				if(this.videoData.url) {
 					this.videoData.banner = this.videoData.url;
 					this.controls = true;
@@ -352,6 +317,36 @@
 						console.log(res)
 						this.$msg('发表成功！')
 						this.xjsppl = "";
+						/* 获取播放请求 */
+						this.$request.play({
+							id: this.id
+						}).then(res =>{
+							res = JSON.parse(res);
+							console.log(res)
+							if(res.ggsc) {
+								this.timer = parseInt(res.ggsc);
+								//广告时长
+								clearInterval(time);
+								var time=setInterval(() =>{
+									if(this.timer <= 0){
+										clearInterval(time);
+										this.guanggao = false;
+									}
+									return this.timer--;
+								},1000)
+							}
+							this.videoData = res;
+							this.spid = this.videoData.id;
+							this.yb(this.spid)
+							if(this.videoData.sczt) {
+								this.collect = this.videoData.sczt;
+							}
+							if(this.videoData.banner) {
+								this.controls = false;
+							}
+						},err =>{
+							console.log(err)
+						})
 					},err =>{
 						console.log(err)
 					})

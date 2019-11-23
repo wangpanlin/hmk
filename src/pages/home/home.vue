@@ -268,7 +268,7 @@
 		</view>
 		<view class="modelshow" v-if="modelshow">
 			<view class="gaosu">
-				<image v-if="resData.length" :src="resData" mode=""></image>
+				<image v-if="resData.length" :src="resData" mode="" @click="novelty"></image>
 				<view><text @click="Inow">我知道了</text></view>
 			</view>
 		</view>
@@ -387,6 +387,7 @@
 			this.$request.indextop().then(res =>{
 				res = JSON.parse(res);
 				this.resData = res.img;
+				console.log(res)
 				if(res.zt == 0) {
 					this.modelshow = false;
 				}else {
@@ -740,6 +741,12 @@
 			}
 		},
 		methods: {
+			/* 点击进入首页提醒详情 */
+			novelty() {
+				uni.navigateTo({
+					url: '/pages/novelty/novelty'
+				})
+			},
 			goPage(tzgz,tzd) {
 				if(tzgz == 1) {
 					uni.navigateTo({
@@ -934,7 +941,7 @@
 			},
 			sm(id) {
 				uni.navigateTo({
-					url: `/pages/xmDetail/xmDetail?id=${id}`
+					url: `/pages/smDetail/smDetail?id=${id}`
 				})
 			},
 			//进驻企业、医美、更多

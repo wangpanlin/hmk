@@ -37,17 +37,6 @@
 					<text class="more" @click="more">查看更多</text>
 				</view>	
 			</view>
-			
-			<view class="huazhongdian">
-				<view class="title6">
-					<text class="t6">学习重点</text>
-				</view>
-				<view class="neirong1">
-					<view class="neirong">
-						<text>{{xqxx.hzdnr}}</text>
-					</view>
-				</view>
-			</view>
 			<!-- 富文本盛放的内容盒子 -->
 			<view class="tx">
 				<rich-text type="text" :nodes="xqxx.content"></rich-text>

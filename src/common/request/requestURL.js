@@ -214,6 +214,13 @@ export default {
 	//落地版块/生美医美收藏
 	gwasc: `${baseurl}/gwa/gwasc`,
 	//落地版块/生美医美评论
-	gwapinglun: `${baseurl}/gwa/pinglun`
-	
+	gwapinglun: `${baseurl}/gwa/pinglun`,
+	/* 学习过程 */
+	xxgc: `${baseurl}/personal/xxgc`,
+	/* 统计观看时长 */
+	addsc: `${baseurl}/yktapi/addsc`,
+	/* 首页新消息提醒 */
+	sytxnr: `${baseurl}/index/sytxnr`,
+	/* 结业证书列表 */
+	jyzs: `${baseurl}/personal/jyzs`
 }

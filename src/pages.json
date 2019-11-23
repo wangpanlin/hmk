@@ -82,6 +82,21 @@
 			}
 		},
 		{
+			//医美生美详情
+			"path": "pages/smDetail/smDetail",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "项目列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "项目列表"
+					}
+				}
+			}
+		},
+		{
 			//绑定手机号
 			"path": "pages/bindPhone/bindPhone",
 			"style": {
@@ -399,6 +414,21 @@
 			}						
 		},
 		{
+			//学习分享
+			"path":"pages/LearningProcess/LearningProcess",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学习过程",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学习过程"
+					}
+				}
+			}						
+		},
+		{
 			//进驻企业
 			"path":"pages/guwenan/guwenan",
 			"style": {
@@ -623,6 +653,48 @@
 					"titleNView": {
 						"type": "default",
 						"titleText": "学员证"
+					}
+				}
+			}			
+		},
+		{	//结业证书
+			"path":"pages/Completion/Completion",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "证书列表",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "证书列表"
+					}
+				}
+			}			
+		},
+		{	//结业证书详情
+			"path":"pages/diploma/diploma",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "证书详情",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "证书详情"
+					}
+				}
+			}			
+		},
+		{	//首页通知
+			"path":"pages/novelty/novelty",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "通知",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "通知"
 					}
 				}
 			}			

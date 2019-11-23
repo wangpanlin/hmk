@@ -32,11 +32,11 @@
 				</view>
 			</view>
 		</view>
-		<view class="diploma">
+		<view class="diploma" @click="certificate">
 			<text style="font-size: 30upx;">我的学员证</text>
 			<view style="display: flex;">
 				<view class="icon hui">&#xe646;</view>
-				<view class="icon hui" @click="certificate">&#xe656;</view>
+				<view class="icon hui">&#xe656;</view>
 			</view>
 		</view>
 		<view class="account">
@@ -90,18 +90,18 @@
 				<view v-if="cszh">
 					<text class="icon color8">&#xe60c;</text>
 					<text class="text3">学习时长</text>
-					<text class="text4">0分钟</text>
+					<text class="text4" v-if="xxsc">{{xxsc}}分钟</text>
 				</view>
-				<view v-if="cszh">
+				<view v-if="cszh" @click="Completion">
 					<text class="icon color9">&#xe689;</text>
 					<text class="text3">结业证书</text>
 					<text class="text4" v-if="zs">{{zs}}个</text>
 					<text class="text4" v-else>0个</text>
 				</view>
-				<view v-if="cszh">
+				<view v-if="cszh" @click="LearningProcess">
 					<text class="icon color10">&#xe60b;</text>
 					<text class="text3">学习过程</text>
-					<text class="text4">0个</text>
+					<text class="text4">{{last_kc}}个</text>
 				</view>
 			</view>								
 		</view>
@@ -160,7 +160,11 @@
 				show: false,
 				cszh: true,
 				phone: '',
-				yzdjl: 0
+				yzdjl: 0,
+				/* 学习过程数量 */
+				last_kc: '',
+				/* 学习时长 */
+				xxsc: ''
 			}
 		},
 		computed: {
@@ -226,11 +230,13 @@
 				this.xdcount = res.xdcount;
 				//证书
 				this.zs = res.zs;
+				this.last_kc = res.last_kc;
 				//下载个数
 				this.downloadNum = res.download;
 				this.show = true;
 				this.yzdjl = res.yzdjl;
-				
+				/* 学习时长 */
+				this.xxsc = res.xxsc;
 			},err =>{
 				console.log(err)
 			})
@@ -304,6 +310,12 @@
 					url: "/pages/pay/pay"
 				})
 			},
+			/* 结业证书 */
+			Completion() {
+				uni.navigateTo({
+					url: '/pages/Completion/Completion'
+				})
+			},
 			//下载
 			download() {
 				uni.navigateTo({
@@ -314,6 +326,12 @@
 			StudyNotes() {
 				uni.navigateTo({
 					url: "/pages/StudyNotes/StudyNotes"
+				})
+			},
+			//学习过程
+			LearningProcess() {
+				uni.navigateTo({
+					url: "/pages/LearningProcess/LearningProcess"
 				})
 			},
 			Business() {

@@ -515,5 +515,23 @@ export default {
 	gwapinglun: async function (prams) {
 		let response = await request.Fetch(requestURL.gwapinglun,prams,'GET',true,true)
 		return response;
-	}
+	},
+	/* 观看时长统计 */
+	xxgc: async function (prams) {
+		let response = await request.Fetch(requestURL.xxgc,prams,'GET',true,true)
+		return response;
+	},
+	addsc: async function (prams) {
+		let response = await request.Fetch(requestURL.addsc,prams,'GET',true,true)
+		return response;
+	},
+	/* 首页通知详情 */
+	sytxnr: async function (prams) {
+		let response = await request.Fetch(requestURL.sytxnr,prams,'GET',true,true)
+		return response;
+	},
+	jyzs: async function (prams) {
+		let response = await request.Fetch(requestURL.jyzs,prams,'GET',true,true)
+		return response;
+	},
 }

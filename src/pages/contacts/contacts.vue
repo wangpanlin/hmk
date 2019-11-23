@@ -1,7 +1,7 @@
 
 <template>
 	<view>
-		<view class="contacts" v-if="contactsData && contactsData.length !==0">
+		<view class="contacts" v-if="contactsData && contactsData.length > 0">
 			<view class="item">
 				<view class="title">你的团队正在不断壮大！！！</view>
 				<view class="flex">

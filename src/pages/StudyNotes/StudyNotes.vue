@@ -20,14 +20,14 @@
 						</view>
 						<view class="box3">
 							<text class="orange">学习心得：</text>
-							<text class="content">{{item.plxd}}</text>
+							<text class="content">{{item.nr}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
 			
 		</view>
-		<view class="noData" v-else></view>
+		<!-- <view class="noData" v-else></view> -->
 	</view>
 
 </template>
@@ -86,7 +86,6 @@
 				display: flex;
 				justify-content: flex-end;
 				.bottom {
-					width: 85%;
 					border-radius: 20upx;
 					display: flex;
 					flex-direction: column;

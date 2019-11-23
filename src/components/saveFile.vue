@@ -88,6 +88,7 @@ export default {
 		flex: 1 0 auto;
 		.receive-qrcode-img {
 			position: relative;
+			top: 85rpx;
 			z-index: 2;
 			width: 100%;
 		}

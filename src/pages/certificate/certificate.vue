@@ -11,17 +11,10 @@
 				</view>
 				<view class="right" v-if="resData.xyxx">
 					<text class="t4">{{resData.xyxx.nickname}}</text>
-					<text class="t6">学习时长：7分钟</text>
-					<text class="t7">学习心得：1条</text>
+					<text class="t6">学习时长：{{resData.xxsc}}分钟</text>
+					<text class="t7">学习心得：{{resData.xxxdcount}}条</text>
 				</view>
 			</view>
-		<!-- 		<view class="erweima">
-					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559052483546&di=35792e4b0b4443af98edfc3f2936fb9f&imgtype=0&src=http%3A%2F%2Fimg3.cache.netease.com%2Fgame%2F2013%2F11%2F26%2F20131126143638f53f4.png"></image>
-				</view>
-				<view class="saoma">扫描二维码关注我吧</view> -->
-<!-- 				<view class="noData">
-					
-				</view> -->
 		</view>
 
 	</view>
@@ -42,6 +35,7 @@
 				this.$request.xyz().then(res =>{
 					res = JSON.parse(res);
 					this.resData = res;
+					console.log(this.resData)
 				},err =>{
 					console.log(err)
 				})

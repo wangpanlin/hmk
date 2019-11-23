@@ -186,7 +186,7 @@
 				this.shopDetail.is_sc = !this.shopDetail.is_sc;
 				this.$request.gwasc({
 					id: this.id,
-					class: 3
+					class: 4
 				}).then(res =>{
 					
 					res = JSON.parse(res);
@@ -201,13 +201,13 @@
 				this.shopDetail.is_dz = !this.shopDetail.is_dz;
 				this.$request.lddz({
 					id: this.id,
-					class: 3
+					class: 4
 				}).then(res =>{
 					res = JSON.parse(res);
 					console.log(res)
 					this.$request.xq({
 						id: this.id,
-						class: 3
+						class: 4
 					}).then(res =>{
 						res = JSON.parse(res);
 						console.log(res)
@@ -231,13 +231,13 @@
 				this.$request.gwapinglun({
 					id: this.id,
 					nr: this.neirong,
-					class: 3
+					class: 4
 				}).then(res =>{
 					res = JSON.parse(res);
 					console.log(res)
 					this.$request.xq({
 						id: this.id,
-						class: 3
+						class: 4
 					}).then(res =>{
 						res = JSON.parse(res);
 						console.log(res)
